@@ -1,0 +1,8 @@
+1.事务不生效的机制：不能使用Private和Final关键字
+事务的传播级别设置
+事务出现异常没有将异常抛出，会导致异常无法回滚
+一个方法中有主线程和其他线程的情况下，事务不生效
+事务回滚的异常：RuntimeException和Error的子类才可以 new Exception不行
+自定义的异常RuntimeException和Error的话就不会触发事务的回滚
+不同事务之间，多数据源之间，设置事务管理器。避免大事务
+并发情况下，数据库连接打满，事务的回滚就会很慢，可以使用transactionTemplate.execute()
