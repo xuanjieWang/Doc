@@ -1,0 +1,18 @@
+
+线程池使用：
+ Executor executor = SpringUtils.getBean("Executor");  //线程池所在的类名
+创建线程池参数：
+   @Bean
+    public Executor ApiExecutor() {
+        log.info("starting config Executor ......");
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(20);
+        executor.setMaxPoolSize(50);
+        executor.setQueueCapacity(1000000);
+        executor.setKeepAliveSeconds(60); //空闲时间 （线程空闲到达设置会退出）
+        executor.setAllowCoreThreadTimeOut(true);
+        executor.setThreadNamePrefix("API-THREAD-");
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy()); //拒绝策略 丢弃抛异常
+        executor.initialize();
+        return executor;
+    }
