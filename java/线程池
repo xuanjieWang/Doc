@@ -1,6 +1,9 @@
 
 线程池使用：
  Executor executor = SpringUtils.getBean("Executor");  //线程池所在的类名
+ CompletableFuture.runAsync(() -> {},exectyor);
+
+
 创建线程池参数：
    @Bean
     public Executor ApiExecutor() {
