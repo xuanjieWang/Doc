@@ -1,7 +1,7 @@
 
 线程池使用：
  Executor executor = SpringUtils.getBean("Executor");  //线程池所在的类名
- CompletableFuture.runAsync(() -> {},exectyor);
+ CompletableFuture.runAsync(() -> {},executor);
 
 
 创建线程池参数：
