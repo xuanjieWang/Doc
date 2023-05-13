@@ -1,0 +1,10 @@
+添加Server文件
+
+server {
+  listen 80;
+  server_name 127.0.0.1;
+  location / {
+      root /user/site     //文件的位置
+      index index.html    //文件
+  }
+}
