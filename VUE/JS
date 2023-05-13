@@ -9,4 +9,37 @@ window是一个全局对象，全局作用域中this指向的是window，常规�
 
 常规函数：突破作用域，使用return将数据返回出来接收
 构造函数：只能使用return的方式获取到新的值
-闭包：两个函数嵌套调用，可以通过闭包创建极度安全的环境，
+
+闭包：两个函数嵌套调用，
+使用场景1：可以通过闭包创建极度安全的环境（封装私有变量）在登录的时候防止多次点击
+
+使用场景2：闭包的使用场景（延迟绑定事件）：还有一个是延迟绑定事件处理函数
+const buttons = document.querySelectorAll('button');
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener('click', function() {
+    console.log(`Button ${i} clicked`);
+  });
+}
+在这个示例中，将点击事件处理函数作为闭包传递给了 "addEventListener" 方法，因此每次点击按钮时都可以正确输出当前按钮的索引。如果不使用闭包传递变量 "i"，则会出现每个按钮都输出相同的索引的问题。
+
+使用场景3：模块化开发
+const MyModule = (function() {
+  let count = 0;
+  function increment() { count++; }
+  function getCount() { return count; }
+  return {
+    increment: increment,
+    getCount: getCount
+  };
+})();
+
+MyModule.increment();
+console.log(MyModule.getCount()); // 1
+在这个示例中，使用立即调用的函数表达式（IIFE）创建了一个闭包，其中声明了变量 "count" 和两个函数，在返回一个包含 "increment" 和 "getCount" 方法的对象后，外部就可以通过该对象访问这两个方法，而无法直接访问变量 "count"。
+
+setTimeOut(function(i){
+  
+},time(延迟时间),index(函数调用的参数))
+
+
+
