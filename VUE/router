@@ -1,0 +1,8 @@
+前端路由：页面之间的跳转	前后不分离，某一个方法传输的是数据就是一个接口，传输的是页面就是路由
+
+前后端分离页面，spa，前端只有一个页面，避免了多个页面操作DOM的页面消耗，整个页面的所有接口请求。不会应为页面的加载而切换整个页面
+
+前端路由是hash模式和
+
+hash（地址栏带#）：浏览器中一部分的切换，不更新所有的页面内容。页面跳转使用<a href="#/home">标签。
+浏览器底层使用hashchange方法，监听hash值发生改变，给windows监听，windows.addEventListener('hashchnage',function(){	console.log()	})
