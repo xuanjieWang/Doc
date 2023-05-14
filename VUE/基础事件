@@ -11,4 +11,6 @@
 input标签获取到值：通过event.targar.value获取到          @keyup.enter="click"   在按下enter的时候进行触发
 if（event.keyCode === 13）{}                      简写：@keyup.13="click"
 
+声明周期:     beforeCreate() -> create()  -> beforeMount() -> mounted()  -> beforeUpdate()  -> update()
+
 
