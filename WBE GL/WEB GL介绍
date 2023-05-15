@@ -1,6 +1,35 @@
-
 超文本语言HTML
+
 脚本语言Javascript
+
 Canvas画布
+HTML的Canvas元素提供了2D和3D绘图两种功能，平时程序员之间交流所说的Canvas一词就是指Canvas的2D绘图功能，通过Canvas元素实现的3D绘图功能，也就是所谓的WebGL，或者说WebGL依赖于Canvas元素实现。、
+
 着色器语言GLSL ES
+着色器语言用于计算机图形编程，运行在GPU中，平时所说的大多数语言编写的程序都是运行在CPU中。 与OpenGL API相配合的是着色器语言GLSL，与OpenGL ES API、WebGL API相互配合的是着色器语言GLSL ES。OpenGL标准应用的是客户端 OpenGL ES应用的是移动端，WebGL标准应用的是浏览器平台。
+//顶点着色器源码
+var vertexShaderSource = '' +
+    'void main(){' +
+    //给内置变量gl_PointSize赋值像素大小
+    '   gl_PointSize=20.0;' +
+    //顶点位置，位于坐标原点
+    '   gl_Position =vec4(0.0,0.0,0.0,1.0);' +
+    '}';
+    
+//片元着色器源码
+var fragShaderSource = '' +
+    'void main(){' +
+    //定义片元颜色
+    '   gl_FragColor = vec4(1.0,0.0,0.0,1.0);' +
+    '}';
+ 
+ 
+ 
 WebGL API
+WebGL API指的就是gl=canvas.getContext('webgl')返回对象gl的一系列绘制渲染方法，通过WebGL API可以把一个三维场景绘制渲染出来。比如上面代码中gl.createShader()、gl.shaderSource()、gl.drawArrays()等方法就是WebGl API。
+WebGL API多数与GPU硬件相关，控制相关图形处理单元，比如说通过gl.createShader()、gl.shaderSource()等方法可以对着色器代码进行编译，然后在GPU的着色器单元上执行；比如说drawArrays不执行，GPU渲染管线的顶点、片元着色器是不会把顶点坐标转化为显示器上的像素显示出来。
+
+如果你有 数字电路的知识，可编程芯片不仅仅只有GPU，针对不同的应用情形，都有特定的可编程芯片，图形处理用到的是可编程GPU，也就是说可以运行程序。处理声音是声卡，处理图像是显卡，自然而然它们 都会以CPU为核心，接受CPU的调度。以上描述在有些地方可能不太严谨，大家也不必记忆，主要目的是让大家有基本的认识，可以更好的编写程序。
+GPU相比CPU最大的特点是并行计算，不过WebGL API都 进行了封装，如果你想学习并行计算可以关注CUDA或OpenCL。GPU硬件(渲染管线)、显卡驱动、操作系统、浏览器、WebGL API是逐层抽象的。每一层都会为上一层提供一个接口，这里可以看出WebGL API是 首先通过浏览器的的解析，才能够经过一系列层驱动GPU工作，生成像素缓存，显示器会按照一定的频率扫描像素缓存，最终显示出来。
+
+gl.drawArrays()方法的作用就是通知GPU执行着色器代码，然后根据着色器代码在Canvas画布上进行渲染绘制。
