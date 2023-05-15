@@ -1,0 +1,54 @@
+Web Workers是一种jsAPi，可以浏览器中创建单线程代码执行。
+
+Web Workers是一种JavaScript API，可以在浏览器中创建一个单独的线程来执行代码。由于JavaScript是单线程的，使用Web Workers可以让JavaScript代码在另一个线程中执行，从而提高性能和响应速度。下面是使用Web Workers的步骤：
+
+1. 创建Worker：使用Worker构造函数创建一个Worker对象，指定要执行的JS文件路径。
+
+```javascript
+// main.js
+var worker = new Worker('worker.js');
+```
+
+2. 发送消息：使用postMessage方法向Worker线程发送消息，可以是任何可序列化的数据结构。
+
+```javascript
+// main.js
+worker.postMessage({
+  type: 'compute',
+  value: 1000
+});
+```
+
+3. 接收消息：为Worker对象添加onmessage事件监听器，接收Worker线程发送的消息。
+
+```javascript
+// main.js
+worker.onmessage = function(event) {
+  var result = event.data;
+  console.log(result);
+};
+```
+
+4. 处理消息：在Worker线程中，使用addEventListener('message', ...)方法添加事件监听器，接收消息并处理。
+
+```javascript
+// worker.js
+addEventListener('message', function(event) {
+  var data = event.data;
+  if (data.type === 'compute') {
+      var result = doSomeHeavyTask(data.value);
+      postMessage(result);
+  }
+});
+
+function doSomeHeavyTask(value) {
+  // ...
+  return result;
+}
+```
+
+在上面的示例中，main.js文件创建了一个Worker对象，并向该对象发送一条消息。Worker线程（worker.js）接收到消息后，执行doSomeHeavyTask函数进行一些计算操作，
+并将结果通过postMessage方法发送给主线程。主线程接收到结果后，输出到控制台。
+
+Web Workers在前端应用程序中有很多应用场景，比如异步加载大量数据、计算密集型任务、实时通信等，可以提高应用程序的性能和用户体验。
+但是需要注意的是，由于Web Workers是独立的线程，因此不能访问DOM和全局变量，需要使用消息机制进行通信，还需要注意线程安全问题。
