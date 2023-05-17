@@ -1,0 +1,5 @@
+前端...
+let arr1 = [1,2,3,4]
+1.展开数组  console.log(...arr1)
+2.合并数组  console.log([...arr1],[...arr2])
+3.函数中使用 当参数传递
