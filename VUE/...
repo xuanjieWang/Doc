@@ -3,3 +3,4 @@ let arr1 = [1,2,3,4]
 1.展开数组  console.log(...arr1)
 2.合并数组  console.log([...arr1],[...arr2])
 3.函数中使用 当参数传递
+4.let person  = {...person1}    可以将对象赋值
