@@ -4,11 +4,13 @@ docker rmi redis
 
 docker ps -a  
 docker run --name myredis -d redis
+伪终端的方式运行：docker run --name myredis -it -p tomcat    -it 伪终端方式   -d守护进程方式
 docker stop myredis
 
 docker导出镜像,为一个压缩包     docker save -o my.tar zookeeper3.7
 docker导入镜像包(压缩包): docker load -i my.tar
 
-Docker运行的本质：
+
+Docker运行的本质：与用户交互的状态或者等待状态。
 
 
