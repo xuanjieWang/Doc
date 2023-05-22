@@ -1,0 +1,7 @@
+Docker就像一个虚拟机一样，可以创建软件
+docker pull redis
+docker rmi redis
+
+docker ps -a  
+docker run --name myredis -d redis
+docker stop myredis
