@@ -11,6 +11,8 @@ docker导出镜像,为一个压缩包     docker save -o my.tar zookeeper3.7
 docker导入镜像包(压缩包): docker load -i my.tar
 
 
-Docker运行的本质：与用户交互的状态或者等待状态。
+Docker运行的本质：与用户交互的状态或者等待状态。docker run 直接在后台运行  -e(-env-file) 设置环境变量  -i 交互方式 -t 给出客户端  -w:公共目录
+Docker退出：-it启动容器之后，exit直接退出 Ctrl+P+Q退出容器后台运行
+Docker进入容器：docker exec -it name  进入到容器的内部
 
 
