@@ -6,5 +6,5 @@ docker ps -a
 docker run --name myredis -d redis
 docker stop myredis
 
-docker导入导出镜像,为一个压缩包     docker save -o my.tar zookeeper3.7
-docker导入镜像包: docker load -i my.tar
+docker导出镜像,为一个压缩包     docker save -o my.tar zookeeper3.7
+docker导入镜像包(压缩包): docker load -i my.tar
