@@ -16,3 +16,7 @@ ENTRYPOINT：和CMD差不多的。
 使用docker build -f 指定Dockerfle文件 -it启动终端 镜像名称:版本号
 Dockerfile中的[command]或者[”executable“]如果通过CMD指定的，docker run不能带参数。如果Dockerfle中式通过ENTRYPOINT指定的，可以带参数ENRETPOINT式不能被替换的。   
 结论：无论使用CMD还是ENTRYPOINT使用["executable"]的方式通用性会很高。
+
+docker cache：大量应用了镜像之间的分层关系，下层作为上层的父镜像出现。镜像分层：（镜像文件系统和json文件）、
+LABEN：将json文件中添加LABEL标签
+COPY: 将宿主机的文件复制到容器目录。修改镜像层文件大小，json文件中镜像ID也会发生变化
