@@ -19,6 +19,12 @@ docker rm ： 删除镜像命令 docker rm names
 export和save：容器和镜像导出导出的区别：export一次只能对一个容器操作，save一次可以对多个镜像操作。 save原封不动的保存文件系统，export只是将文件系统快照保存，丢失原镜像历史记录
 impoer和load：最终都是镜像，import恢复镜像只是当前一层，load恢复的镜像和原来是相同的
 
+docker system df ：查看容器磁盘占用    docker system event ：查看启动日志   docker system info：查看信息  docker system prune(移除所有的未使用镜像)
+
+docker pause：可以暂停容器对外提供服务
+docker create：创建一个容器但是不运行
+
+
 
 
 
