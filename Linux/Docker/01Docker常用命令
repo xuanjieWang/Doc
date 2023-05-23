@@ -20,7 +20,7 @@ docker exec：线程隔离
 docker attach：就是一个进程，多个客户端进入到一个容器的时候是操作指令都可以看见的。可以看见日志
 
 docker top name ：查看正在运行的进程
-
+docker cp ： 将一个文件拷贝到镜像下面的一个目录中  docker cp mytar myredis:/root
 
 
 
