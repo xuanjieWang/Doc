@@ -1,0 +1,8 @@
+DockerFile是构建Docker镜像的脚本文件，由一系列指令构成，通过docker build命令创建镜像，会由上到下依次执行，每条指令都会构建出一个镜像。
+
+from scratch：是从空镜像，只能从Dockerfile被继承
+ADD： 复制宿主机里面的文件到src文件中到dest目录中。src里面的文件是一个压缩文件
+COPY：功能和ADD是一样的,SRC不能是一个URL，不会自动解压
+ONBUILD：
+WORKDIR：容器打开之后的相对路径，可以设置多路径
+RUN: <command,param1>使用shell指定运行的cmd    执行过程中会调用第一个参数EXECUTABLE指定程序，后面是参数
