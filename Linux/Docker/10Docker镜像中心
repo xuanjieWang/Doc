@@ -1,8 +1,57 @@
-镜像中心：就是可以将自己本地的镜像发布到网络环境中。
+镜像中心：就是可以将自己本地的镜像发布到网络环境中。使用dockerfile编写一个文件
 
-搭建镜像中心（HTTP,HTTPS）
 
-发布到docker hub
 
-发布到阿里云
+发布到docker hub 
+  docker tar xxxx /xxxx
+  docker push xxxx
+
+发布到阿里云：阿里云里面是命名空间下面的镜像仓库，镜像仓库里面包含多个镜像。命名空间的好处是可以对镜像中心进行分类。
+$ docker login --username=wangxuanjie registry.cn-hangzhou.aliyuncs.com
+$ docker pull registry.cn-hangzhou.aliyuncs.com/xuanjie-test/docker-hello-world:[镜像版本号]
+$ docker login --username=wangxuanjie registry.cn-hangzhou.aliyuncs.com
+$ docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/xuanjie-test/docker-hello-world:[镜像版本号]
+$ docker push registry.cn-hangzhou.aliyuncs.com/xuanjie-test/docker-hello-world:[镜像版本号]
+
+$ docker images
+REPOSITORY                                                         TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+registry.aliyuncs.com/acs/agent                                    0.7-dfb6816         37bb9c63c8b2        7 days ago          37.89 MB
+$ docker tag 37bb9c63c8b2 registry-vpc.cn-hangzhou.aliyuncs.com/acs/agent:0.7-dfb6816
+$ docker push registry-vpc.cn-hangzhou.aliyuncs.com/acs/agent:0.7-dfb6816
+
+HTTP（80 tcp）：明文传输协议，传输的数据没有加密措施   被窃听 被篡改  被冒充  
+HTTPS（443 先由运输层ssl/tls通信再通过tcp）通过ssl/tls进行加密（SSL与tls：SSL: 安全套接字协议 tls：传输层安全协议）    
+用户身份验证（非对称加密[加密解密密钥不用]）和传输加密（对称加密[加密解密密钥不用]），大大降低了风险。
+非对称加密：因子分解算法， 公钥和私钥，一个用于加密一个解密
+公钥加密：私钥解密：称为信息加密和信息解密   私钥加密：称为数字签名和签名验证
+
+HTTPS加密的过程：
+使用数字签名加密：整个通信过程包含两个阶段，通信关系建立和通信，通信的原因
+
+httpPassword：
+htppasswd -Bbc htpassw.user zhangsan 123
+
+
+---------------------------------------------------------------------
+在 Ubuntu 中，您可以使用以下命令来安装 Apache HTTP Server 工具：
+首先，确保您的系统已更新至最新版本。
+sudo apt update
+sudo apt upgrade
+sudo apt install apache2-utils
+安装完成后，您可以使用 htpasswd 命令来创建和管理密码文件。
+htpasswd -c /path/to/password/file username
+这将创建一个名为 "password" 的密码文件，并添加一个新用户。您需要将 "/path/to/password/file" 替换为您选择的实际文件路径，"username" 替换为您要添加到密码文件中的用户名。
+接下来，htpasswd 命令会提示您输入新用户的密码。请注意，htpasswd 命令不会输出任何信息，而是在成功创建用户时直接退出。
+如果您需要向现有密码文件添加新用户，请省略 "-c" 标志，否则它将覆盖现有密码文件。
+希望这些信息能帮助您安装和使用 Apache HTTP Server 工具。如果您有其他问题，请随时提出。
+----------------------------------------------------------------------
+在 Ubuntu 中，您可以使用 apt 命令来安装 ApacheBench (ab)：使用 sudo apt update 命令来更新软件源。
+sudo apt update
+sudo apt install apache2-utils
+安装完成后，您可以使用 ab 命令进行测试。例如，要测试某个 URL 的性能，请键入以下命令：
+ab -c 10 -n 100 http://example.com/
+这将并发启动 10 个连接，并在测量期间发送 100 个请求。请记得将 "http://example.com/" 替换为您要测试的实际 URL。
+
+
+
 
