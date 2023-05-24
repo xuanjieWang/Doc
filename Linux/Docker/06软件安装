@@ -1,9 +1,30 @@
-安装mysql需要将数据进行挂载
+安装mysql需要将数据进行挂载：下面指定了三个数据卷，data，log，conf
 docker run --name mysql \
-> -e MYSQL_ROOT_PASSWORD=root \
-> -v /xj/mysql/data:/var/lib/mysql \
-> -v /xj/mysql/log:/var/log/mysql \
-> -v /xj/mysql/conf:/etc/mysql/conf.d \
-> -dp 3306:3306 \
-> mysql:5.7
+-e MYSQL_ROOT_PASSWORD=root \
+-v /xj/mysql/data:/var/lib/mysql \
+-v /xj/mysql/log:/var/log/mysql \
+-v /xj/mysql/conf:/etc/mysql/conf.d \
+-dp 3306:3306 \
+mysql:5.7
 
+mysql集群master安装：在my.conf文件中添加:
+server_id = 01
+binlog-ignore-db=mysql    忽略mysql文件的调整
+log-bin=master-log-bin    
+binlog-cache-size= 1M     log文件缓存
+binlog_format=mixed       文件的log方式
+expire_logs_day=7         日志的过期事件
+
+创建子节点设置密码：create user 'slave'@'%' identified by '123456';
+用户授权：grant replication slave, replication client on *.* to 'slave'@'%';   
+
+创建 slave节点：复制主节点的数据卷并修改my.conf文件夹
+server_id = 02
+binlog-ignore-db = mysql    忽略mysql文件的调整
+log-bin = slave-log-bin    
+binlog-cache-size = 1M     log文件缓存
+binlog_format = mixed       文件的log方式
+expire_logs_day = 7         日志的过期事件
+relay_log = relay-log-bin   开启重做日志
+log_slave_update = 1        开启更新日志
+read_only = true            只读权限
