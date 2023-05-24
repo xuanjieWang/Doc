@@ -1,0 +1,29 @@
+docker pull redis:7.0
+
+单机版搭建：需要准备一个redis配置文件，就可以实现持久化的方式
+docker run --name redis1 \
+-v /root/redis/redis.conf:/xj/redis.conf \
+-v /root/redis/data:/xj/redis/data \
+-dp 6379:6379 \
+redis 7.0 \
+redis-server /xj-redis.conf
+
+搭建一主两从节点，修改三个配置文件(复制三份)
+salve-announce-ip xxx
+slave-announce-port 6379
+
+slave启动命令
+docker run --name redis1 \
+-v /root/redis/redis.conf:/xj/redis.conf \ （绑定对应的节点配置文件）
+-v /root/redis/data:/xj/redis/data \
+-dp 6379:6379 \
+redis 7.0 \
+redis-server /xj-redis.conf --slaveof 192.169.192.106 6379（绑定注解的ip+端口）
+
+如果master挂掉了，需要搭建热处理的容灾方案：一主二从三哨兵的集群。会自动选举。在上面的一主二从节点上面添加三个哨兵节点进行选举
+创建sentinel配置文件：
+sentinel monitor mymaster 192.168.192.106 6379 2    (最后的是指定节点数量)
+
+
+搭建分布式redis集群，三主三从节点
+cluster配置文件
