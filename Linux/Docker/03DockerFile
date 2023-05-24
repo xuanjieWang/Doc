@@ -1,4 +1,5 @@
 DockerFile是构建Docker镜像的脚本文件，由一系列指令构成，通过docker build命令创建镜像，会由上到下依次执行，每条指令都会构建出一个镜像。
+编写DockerFile 文件，通过命令 docker build -t name . 就可以通过DockerFile文件编写出一个镜像，可以是一个包含c语言的程序
 
 from scratch：是从空镜像，只能从Dockerfile被继承
 ADD： 复制宿主机里面的文件到src文件中到dest目录中。src里面的文件是一个压缩文件。
