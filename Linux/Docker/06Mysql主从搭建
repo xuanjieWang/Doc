@@ -28,3 +28,8 @@ expire_logs_day = 7         日志的过期事件
 relay_log = relay-log-bin   开启重做日志
 log_slave_update = 1        开启更新日志
 read_only = true            只读权限
+
+master的节点，使用者名称，账号密码，主机端口号，绑定主节点的log_file文件（使用show master status）查看，指定具体的位置（使用show master status）查看，连接主节点的间隔时间
+从节点执行：change  master to master_host='masterHOST', master_user = 'slave',master_password='123456',master_port='3316',master_log_file='master-log-bin.0000001',master_log_position='617',master_connect_retry=30
+
+
