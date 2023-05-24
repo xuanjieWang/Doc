@@ -1,0 +1,4 @@
+DockerCompose：在生产的时候，每一个开启容器的时候是有顺序的，是一个Docker容器编排外部工具，不是通过脚本组织起来的，通过声明式的将应用组织起来的。启动创建多个容器
+compose文件中包含6个属性：version ,service（必须的） ,network ,volumes ,configs ,secrets很多属性
+
+docker compose的安装：
