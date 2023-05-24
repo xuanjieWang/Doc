@@ -1,1 +1,60 @@
 
+前端...
+let arr1 = [1,2,3,4]
+1.展开数组  console.log(...arr1)
+2.合并数组  console.log([...arr1],[...arr2])
+3.函数中使用 当参数传递
+4.可以将对象赋值 let person  = {...person1}    
+5.赋值对象的时候修改中间的属性： let person2 = {...person1,name:'xxx'}
+
+document.getElementById（）获取到js中的元素，
+1.修改元素的文本内容或者html结构
+2.修改元素的css样式，，通过style属性可以修改元素的css样式
+3.绑定事件处理函数，获取元素之后可以使用EventListener方法绑定处理函数，点击滚动，鼠标移动
+4.操作元素的属性和属性值：通过获取元素对象后，可以直接修改元素的属性和属性值，如修改 img 元素的 src 属性，修改 input 元素的 value 属性等。
+5.删除或隐藏元素：通过获取元素对象后，可以使用 remove() 或隐藏元素的方式（例如设置 display:none）来删除或隐藏元素。
+
+js内存机制
+1.执行栈，执行环境栈，js引擎执行代码的时候，首先创建环境栈       数据修改过程： 开辟空间，数据赋值，数据修改，垃圾回收
+2.执行上下文，每个域下面的确认执行哪些事件，哪些数据，上下文的主体this是什么
+
+作用域：全局作用域，局部作用域，块级作用域         变量提升，可以在变量声明之前进行访问，打印输出console
+window是一个全局对象，全局作用域中this指向的是window，常规情况下可以使用windows,function()可以访问到对象。
+
+构造函数的this指向：构造函数内部的this指向的是构造出来的对象，如果是直接调用构造函数，this就是全局的window
+
+常规函数：突破作用域，使用return将数据返回出来接收
+构造函数：只能使用return的方式获取到新的值
+
+闭包：两个函数嵌套调用，
+使用场景1：可以通过闭包创建极度安全的环境（封装私有变量）在登录的时候防止多次点击
+
+使用场景2：闭包的使用场景（延迟绑定事件）：还有一个是延迟绑定事件处理函数
+const buttons = document.querySelectorAll('button');
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener('click', function() {
+    console.log(`Button ${i} clicked`);
+  });
+}
+在这个示例中，将点击事件处理函数作为闭包传递给了 "addEventListener" 方法，因此每次点击按钮时都可以正确输出当前按钮的索引。如果不使用闭包传递变量 "i"，则会出现每个按钮都输出相同的索引的问题。
+
+使用场景3：模块化开发
+const MyModule = (function() {
+  let count = 0;
+  function increment() { count++; }
+  function getCount() { return count; }
+  return {
+    increment: increment,
+    getCount: getCount
+  };
+})();
+
+MyModule.increment();
+console.log(MyModule.getCount()); // 1
+在这个示例中，使用立即调用的函数表达式（IIFE）创建了一个闭包，其中声明了变量 "count" 和两个函数，在返回一个包含 "increment" 和 "getCount" 方法的对象后，外部就可以通过该对象访问这两个方法，而无法直接访问变量 "count"。
+
+setTimeOut(function(i){
+  
+},time(延迟时间),index(函数调用的参数))
+
+
