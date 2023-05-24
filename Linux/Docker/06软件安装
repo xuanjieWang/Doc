@@ -1,0 +1,9 @@
+安装mysql需要将数据进行挂载
+docker run --name mysql \
+> -e MYSQL_ROOT_PASSWORD=root \
+> -v /xj/mysql/data:/var/lib/mysql \
+> -v /xj/mysql/log:/var/log/mysql \
+> -v /xj/mysql/conf:/etc/mysql/conf.d \
+> -dp 3306:3306 \
+> mysql:5.7
+
