@@ -12,14 +12,18 @@ docker compose的安装：curl -SL https://github.com/docker/compose/releases/do
  EXPOSE 8080
  
  在应用中，打包的jar包只能在本地进行运行，手工启动项目不仅繁琐易错，还存在一个致命的问题。redis和mysql都是在配置文件中写死的，使用Docker compose可以解决问题
- 
  检查缩写的compose.yml文件是不是有错误：docker-compose config -q
  docker-compose启动命令；docker-compose up -d
+ 
+ 将文件的名称设置为
+ 
  
  services:
   xjapp:
     build: ./
     container_name: myapp
+    networks:
+      - ab
     ports:
       - 9000:8080
     volumes:
@@ -30,6 +34,7 @@ docker compose的安装：curl -SL https://github.com/docker/compose/releases/do
 
   xjmysql:
     image: mysql:5.7
+    container_name: mymysql
     environment:
       MYSQL_ROOT_PASSWORD: 111
     ports:
@@ -41,13 +46,16 @@ docker compose的安装：curl -SL https://github.com/docker/compose/releases/do
 
   xjredis:
     image: redis:7.0
+    container_name: myredis
     ports:
       - 6379:6379
     volumes:
       - /root/redis/reids.conf:/etc/redis/redis.conf
       - /root/redis/data:data
     command: redis-server /etc/redis/redis.conf
-
+    
+  networks:
+   ab:
  
  
  
