@@ -1,7 +1,4 @@
 镜像中心：就是可以将自己本地的镜像发布到网络环境中。使用dockerfile编写一个文件
-
-
-
 发布到docker hub 
   docker tar xxxx /xxxx
   docker push xxxx
@@ -30,6 +27,8 @@ HTTPS加密的过程：
 
 httpPassword：
 htppasswd -Bbc htpassw.user zhangsan 123
+
+
 
 
 ---------------------------------------------------------------------
