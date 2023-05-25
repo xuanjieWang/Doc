@@ -1,0 +1,6 @@
+生产中使用集群，DockerSwarm，在多个主机上面创建镜像
+docker cpmpose：是在单个主机上面创建多个镜像。一个node可能多个任务
+节点：节点和虚拟机，一个docker主机上有很多主机（master管理node），maste和master之间使用的是raft算法
+服务：
+
+新创建多个Linux服务器，
