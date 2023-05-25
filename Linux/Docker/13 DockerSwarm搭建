@@ -2,7 +2,7 @@
 docker cpmpose：是在单个主机上面创建多个镜像。一个node可能多个任务
 节点：节点和虚拟机，一个docker主机上有很多主机（master管理node），maste和master之间使用的是raft算法
 
-新创建多个Linux服务器，
+<p style="font-size:16px;">这是一个段落。</p>
 初始化： docker swarm init      查看节点信息： docker node ls
 节点添加为swarm：docker swarm join --token SWMTKN-1-4j3e02kjf1tv7r8r5ww69t51s8o3av8a0f3qtulhecyjdxxqwq-eak3523e036m1nxerg2k7higo 172.27.173.253:2377
 节点添加为manager： docker swarm join --token SWMTKN-1-4j3e02kjf1tv7r8r5ww69t51s8o3av8a0f3qtulhecyjdxxqwq-8qc2me0w8hz0eycfu0nw30qkg 172.27.173.253:2377
