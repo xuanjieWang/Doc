@@ -1,0 +1,19 @@
+虚拟机和节点不是一对一的（只能有一个节点是激活状态），一个节点上可以有多个任务。
+Service的创建：docker service --name xuanjie --replicas 3（副本）-p 9000:8080 tomcat:8.5.49         集群的任务分为 --replicas 指定多少的任务 global 每个机器上面都会有一个副本
+查看service进程： docker service ps xuanjie 
+查看service服务： docker service ls
+查看一个具体的service的分布的机器： docker service ps name    
+查看一个机器上面的服务： docker node ps nodexxxx
+
+servics扩容缩容的操作：docker service ps scale toms = 7
+设置为pause（影响扩容节点，不进行扩容）：docker node update --availability pause nodename
+
+容器镜像更新：docker service update --image tomcat:8.5.39 names
+容器镜像回滚：docker service update --rollback name
+
+全局部署模式：docker service create --name name --mode global -p 9000:8080 imagename
+
+如果使用replices部署，当有一个节点上面没有此镜像的时候（设置为pause模式），但是还是可以正常访问
+overlay网络：构建在underlay网络，逻辑虚拟网络在物理网络的基础上，节点间单播隧道的机制将主机两两相连，。主要是通过iptables.ipvs,sxlan实现的。
+
+
