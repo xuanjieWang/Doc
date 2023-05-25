@@ -1,0 +1,6 @@
+CI: 持续集成，将持续不断的更新的代码经过构建，测试之后也持续不断的集成到主干分支
+CD：持续部署，持续交付
+DevOps：是一组过程，方法，系统的开发运维测试，通过自动化软件交付和架构更变的流程来使得构建，测试，发布软件更加便捷。是一种思想和管理模式
+
+idea ->  GitLab -> jenkins (Maven package打包 Sonar Scanner代码检查工具 Docker Docker BUild SonarQube )最后推送到镜像中心Harbor
+目标服务器拉取，通过docker pull拉取，然后运行。构建结果提醒到钉钉
