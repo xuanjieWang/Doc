@@ -1,0 +1,21 @@
+生产中使用集群，DockerSwarm，在多个主机上面创建镜像
+docker cpmpose：是在单个主机上面创建多个镜像。一个node可能多个任务
+节点：节点和虚拟机，一个docker主机上有很多主机（master管理node），maste和master之间使用的是raft算法
+
+新创建多个Linux服务器，
+初始化： docker swarm init      查看节点信息： docker node ls
+节点添加为swarm：docker swarm join --token SWMTKN-1-4j3e02kjf1tv7r8r5ww69t51s8o3av8a0f3qtulhecyjdxxqwq-eak3523e036m1nxerg2k7higo 172.27.173.253:2377
+节点添加为manager： docker swarm join --token SWMTKN-1-4j3e02kjf1tv7r8r5ww69t51s8o3av8a0f3qtulhecyjdxxqwq-8qc2me0w8hz0eycfu0nw30qkg 172.27.173.253:2377
+退出当前的swarm（关闭swarm模式）：docker swarm leave        docker node rm -f ID（当前节点强制退群）
+
+设置节点自动锁定：docker swarm update -autolock=true 会出现密钥
+设置节点解锁（出现宕机之后重新连接）： docker swarm unlock
+节点升级：docker node promote  节点ID
+节点降级: docker node demote 节点ID
+节点删除：docker node rm 节点ID
+swarm自动锁定：在manager集群中，raft日志维护了一致性，节点间通过manager通信的方式维护了自己raft日志，通过tls加密，用于加密和解密的密钥存储在docker内存中，如果进行开关机就会丢失
+
+swarm节点安全问题：PKI，swarm使用tls鉴权，加密，
+docker
+
+
