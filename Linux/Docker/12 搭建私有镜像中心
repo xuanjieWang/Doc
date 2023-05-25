@@ -1,1 +1,40 @@
-搭建私有镜像中心： 一般是在一台独立的服务器上面
+distribution：私有镜像中心搭建。  docker login 172.27.173.253:5000
+在daemon.json文件中添加 "insecure-registries":[":5000"]   表明整个端口是一个安全的端口不同https
+推送镜像到镜像中心： docker push 
+查看镜像仓库中间： curl -Xget http: xx:5000/v2/_catalog
+删除镜像中心镜像：curl --header "Accept:application/vnd.docker.distribution.manifest.v2+json" -I -XGET http://192.168.192.111:5000/v2/hdw/manifests/1.0
+开启删除功能：配置文件中修改： storage:  delete: enable: truw
+
+创建一个新的目录来存储 Docker Distribution 的配置文件。例如，您可以在 /etc/docker-distribution 目录下创建一个名为 config.yml 的配置文件：
+sudo mkdir /etc/docker-distribution
+sudo vi /etc/docker-distribution/config.yml
+yaml
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+  delete:
+    enable: true
+  cache:
+    layerinfo: inmemory
+  filesystem:
+    rootdirectory: /var/lib/docker-distribution
+http:
+  addr: :5000
+  headers:
+    X-Content-Type-Options: [nosniff]
+这将配置 Docker Distribution 服务以使用本地文件系统存储图像。
+
+使用 Docker 运行 Docker Distribution 容器。可以使用以下命令拉取并启动 Docker Distribution 容器：
+sudo docker run -d -p 5000:5000 --restart always --name registry \
+-v /etc/docker-distribution:/etc/docker-distribution \
+registry:2
+上述命令假定您已经在本地安装了 Docker。它还将 Docker Distribution 容器绑定到本地端口 5000 并将其命名为 registry。它还将全局配置文件和 Registry 数据存储的目录映射到 /etc/docker-distribution 目录。
+curl -i http://localhost:5000/v2/
+
+---------------------------------------
+搭建registry镜像中心需要安装openssl
+创建证书：openssl genrsa -out ca.key 4096  
+创建证书: openssl req -x509 -new -nodes -sha512 -days 3650 -subj "/C=CN/ST=Hubei/L=Yichang=CA/OU=CAUnit/CN=cacn.com" -key ca.key -out ca.crt
+生成服务器证书：
