@@ -1,1 +1,15 @@
 安装jenkins
+
+docker pull jenkins/jenkins:2.387.1
+docker run --name jenkins --restart always -p 8080:8080 -p 50000:50000 -v /var/jenkins_home/:var/jenkins_home -d jenkins/jenkins:2.387.1
+chmod -R 777 /var/jenkins_home
+
+查看jenkins密码：
+
+进入虚拟机jenkins文件夹：修改Jenkins下载地址   vim hudson.model.UpdateCenter.xml
+ <url>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/current/update-center.json</url>
+
+下载sonar-scanner在官网下载，传到服务器上面，移动到jenkins服务器挂载目录，进入conf目录，修改properties文件
+配置端口号：：9000
+sonal.source=./
+sonar.java.binaries=./target
