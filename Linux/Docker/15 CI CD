@@ -38,6 +38,19 @@ services:
       
  DockerCompose编写完成之后需要修改虚拟机内存大小  /etc/sysctl.conf    vm.max_map_count=262144  sysctl -p
  
+ ---------------------------------------------------------------------------------------------
+ Harbor（镜像中心）和target的服务器的安装
+ harbor： 从github上面下载，解压到指定目录      
+ 修改配置文件：mv harbor.yml.tmpl harbor.yml       vim harbar.yml         1.修改hostName：为虚拟机地址   2.注释https，    3.配置harbor密码
+ 运行 ./prepare   运行 ./install.sh
+ 访问 80端口，新建一个项目
+ 
+ 在目标服务器，安装docker compose，创建jenkins文件夹用于接收jenkins数据，
+ 
+ 
+ 
+ 
+ 
 
 
 
