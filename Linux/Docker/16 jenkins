@@ -13,3 +13,27 @@ chmod -R 777 /var/jenkins_home
 配置端口号：：9000
 sonal.source=./
 sonar.java.binaries=./target
+
+gitlab: 9999-root  jenkins-8080-xj  Sonar-Qube:9000-admin   harbar:80-admin
+将gitlab和harbar集成到jenkins中。完成持续交付和持续部署。将代码推送到gitlab，jenkins在项目中，将项目拉取到jenkins本地，自动打包，构建镜像（docker file），docker compose跑项目
+
+搭建一个springBoot项目。在gitlab中添加项目。gitlab创建用户，
+PS C:\Users\WXJ\Project\hellojks> git config --global user.name "Adminstrator"
+PS C:\Users\WXJ\Project\hellojks> git config --global user.email "2071985621@qq.com"
+
+将代码提交到远程的gitlab
+在jenkins中创建任务，创建自由风格的项目
+创建 的项目之后需要打包，添加构建步骤，clean package--DskipTests
+创建Sonar Qube中将提交的代码进行代码检测。
+会出现悬虚镜像，push 到gitlab中，每一次提交都会打包会新增一个悬虚镜像，
+
+jenkins容器化：实现方案，在 容器内部安装docker（不适用），与宿主机共享docker。
+修改docker.sock权限：/var/run/docker.sock  chown root:root docker.sock              chmod o+rw docker.sock
+
+修改配置文件：
+将target目录下面的jar包移动到docker目录：mv target/*.jar docker 
+构建镜像：docker build -d helldjks.docker /
+登录harbor： docker login -u amdin -p 1111 
+docker tar hellojks
+清除悬虚镜像：docker image prune -f 
+将镜像推送到harbor: docker push 
