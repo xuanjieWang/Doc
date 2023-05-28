@@ -1,0 +1,8 @@
+jpg，png，tiff栅格数据，矢量数据
+基本渲染原理：使用img标签和canvas标签画图，对于矢量标签渲染为svg标签还有canvans标签
+基本框架介绍：
+leaflet框架，轻量和简单
+openlayers：国内主流的框架，api框架多，渲染原理事canvans
+mapbox：支持多端，渲染地图精美 3.5D框架
+cesium：三维框架底层是wenGL
+
