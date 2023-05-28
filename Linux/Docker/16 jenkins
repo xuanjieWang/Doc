@@ -37,3 +37,9 @@ jenkins容器化：实现方案，在 容器内部安装docker（不适用），
 docker tar hellojks
 清除悬虚镜像：docker image prune -f 
 将镜像推送到harbor: docker push 
+
+jenkins通知目标服务器：使用kenkins通知目标服务器。定义脚本文件
+
+流水线任务helloworld：流水线是根据jenkins构建阶段的清晰显示，用户可以通过可视化的操作方式轻松查看。
+软件配置管理：
+
