@@ -23,5 +23,8 @@ services:
       - ./logs:/var/log/gitlab
       - ./data:/var/opt/gitlab
   
-  3.
+  3.执行docker-compose up -d
+  
+  4.进入容器查看密码：docker exec -it gitlab bash
+查看dockerlab密码： cat /etc/gitlab/initial_root_password
       
