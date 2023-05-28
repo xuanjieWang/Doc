@@ -16,8 +16,6 @@ docker compose的安装：curl -SL https://github.com/docker/compose/releases/do
  docker-compose启动命令；docker-compose up -d
  
  将文件的名称设置为
- 
- 
  services:
   xjapp:
     build: ./
