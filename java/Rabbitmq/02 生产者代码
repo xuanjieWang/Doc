@@ -1,0 +1,44 @@
+  String queueName = "xj-queue";
+        String exchangeName = "xj-exchange";
+
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+        connectionFactory.setHost("172.27.173.253");
+        connectionFactory.setUsername("guest");
+        connectionFactory.setPassword("guest");
+        connectionFactory.setPort(5672);
+            Channel channel = connectionFactory.newConnection().createChannel();
+            /**生成一个交换机
+             * 1.创建交换机
+             * 2.交换机类型：direct，topic，fanout，headers
+             * 3.指定交换机是否持久化
+             * 4.指定交换机在没有队列绑定时是否需要删除
+             * 5.Map<String,Object></>  指定交换机其他的结构化参数
+             * **/
+            channel.exchangeDeclare(exchangeName, BuiltinExchangeType.DIRECT,true,false,null);
+
+            //生成一个队列
+            /**1.队列名称
+             * 2.队列是否需要持久化，队列名称的持久化，不是消息持久化
+             * 3.队列是不是私有的，如果是私有的只有创建应用程序才可以消费
+             * 4.队列再没有消费者订阅的情况下，是不是删除
+             * 5.队列的结构信息，比如声明死信队列，磁盘队列会用到
+             * **/
+            channel.queueDeclare(queueName,true,false,false,null);
+
+            /***队列和交换机绑定
+             * 1.队列名称
+             * 2.交换机名称
+             * 3.路由键：直连模式下可以是队列名称，
+             * */
+            channel.queueBind(queueName,exchangeName,queueName);
+
+            String message = "hello rabbitmq";
+
+            /***发送消息
+             * 1.交换机名和曾
+             * 2.队列名称
+             * 3.其他参数信息
+             * 4.发送消息的消息体
+             * **/
+            channel.basicPublish(exchangeName,queueName,null,message.getBytes());
+                channel.close();
