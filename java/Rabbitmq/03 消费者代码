@@ -1,0 +1,27 @@
+ String queueName = "xj-queue";
+
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+        connectionFactory.setHost("172.27.173.253");
+        connectionFactory.setUsername("guest");
+        connectionFactory.setPassword("guest");
+        connectionFactory.setPort(5672);
+        Channel channel = connectionFactory.newConnection().createChannel();
+
+        //接收消息回调函数
+        DeliverCallback deliverCallback =(consumerTage,message) -> {
+            System.out.println("接受到的消息是："+new String(message.getBody()));
+        };
+
+        //取消消息回调函数
+        CancelCallback cancelCallback =consumerTag ->{
+            System.out.println("消息取消的回调，消息中断");
+        };
+
+        /**消费消息
+         * 1.消费哪个队列
+         * 2.消费成功之后是否自动应答
+         * 3.接收消息的回调函数
+         * 4.取消消息的回调
+         * **/
+        channel.basicConsume(queueName,true,deliverCallback,cancelCallback);
+        channel.close();
