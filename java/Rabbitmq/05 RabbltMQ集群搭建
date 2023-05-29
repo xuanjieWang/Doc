@@ -1,0 +1,66 @@
+rabbitMQ集群搭建：
+要在 RabbitMQ 中搭建集群，可以遵循以下步骤：
+
+安装 RabbitMQ，在每个节点上安装 RabbitMQ，并确保它们都使用相同的版本和配置。配置节点
+
+在每个节点上编辑 /etc/hostname 文件中的主机名，并编辑 /etc/hosts 文件以包括所有节点的 IP 地址和主机名。例如：
+
+192.168.1.1 rabbitmq-1
+192.168.1.2 rabbitmq-2
+192.168.1.3 rabbitmq-3
+确保所有节点都能够互相解析。
+
+启用 Clustering 插件，执行以下命令启用 RabbitMQ 的 rabbitmq_clusterer 插件：
+rabbitmq-plugins enable rabbitmq_clusterer
+配置集群
+
+rabbitmqctl stop_app
+rabbitmqctl reset
+rabbitmqctl join_cluster [--ram] <disc | ram> <node_name> [--via-rabbitmq-node <rabbit>] [--[no-]migrate-data] [--timeout <timeout>]
+rabbitmqctl start_app
+其中，
+
+stop_app 和 start_app 命令用于停止和重新启动 RabbitMQ 应用程序；
+reset 命令用于删除旧的数据并创建一个新的空节点；
+join_cluster 命令将当前节点加入到集群中；
+--ram 选项用于将节点设置为仅内存模式；
+<disc | ram> 参数表示节点的类型，可以是磁盘节点或仅内存节点；
+<node_name> 参数表示节点的名称；
+--via-rabbitmq-node 选项用于指定用于加入集群的 RabbitMQ 节点的主机名或 IP 地址；
+--[no-]migrate-data 选项用于指定是否迁移节点上的数据，默认为 false；
+--timeout 选项用于指定操作超时时间。
+验证集群状态
+
+在其中一个节点上执行以下命令验证集群状态：
+
+rabbitmqctl cluster_status
+
+----------------------------------------docker 搭建 rabbitmq集群-------------------------------------------------
+docker network create rabbitmq-net
+这将创建一个名为 rabbitmq-net 的 Docker 网络。
+
+启动 RabbitMQ 节点
+
+在三个不同的终端中分别执行以下命令：
+docker run --name rabbitmq-node1 --hostname rabbitmq-node1 --net rabbitmq-net -e RABBITMQ_ERLANG_COOKIE='rabbitcookie' -d rabbitmq:3-management
+docker run --name rabbitmq-node2 --hostname rabbitmq-node2 --net rabbitmq-net -e RABBITMQ_ERLANG_COOKIE='rabbitcookie' -d rabbitmq:3-management
+docker run --name rabbitmq-node3 --hostname rabbitmq-node3 --net rabbitmq-net -e RABBITMQ_ERLANG_COOKIE='rabbitcookie' -d rabbitmq:3-management
+这将在三个 Docker 容器中启动三个 RabbitMQ 节点。其中，rabbitmq-node1、rabbitmq-node2 和 rabbitmq-node3 分别表示节点的名称，rabbitcookie 是用于加密 Erlang Cookie 的密码，rabbitmq:3-management 是 RabbitMQ 的 Docker 镜像名称（包含管理界面）。
+
+使用 docker inspect 命令获取节点 IP 地址运行以下命令获取每个节点的 IP 地址：
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rabbitmq-node1
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rabbitmq-node2
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rabbitmq-node3
+这将返回每个节点的 IP 地址。在后续步骤中，你需要使用这些地址来配置集群。
+
+配置集群以具有 "rabbitmq-node1" 名称的节点为主节点，执行以下命令配置集群：
+
+docker exec -it rabbitmq-node1 rabbitmqctl stop_app
+docker exec -it rabbitmq-node1 rabbitmqctl reset
+docker exec -it rabbitmq-node1 rabbitmqctl join_cluster rabbit@rabbitmq-node1 rabbit@rabbitmq-node2 rabbit@rabbitmq-node3
+docker exec -it rabbitmq-node1 rabbitmqctl start_app
+这将将节点 rabbitmq-node2 和 rabbitmq-node3 加入到名为 rabbit 的 RabbitMQ 集群中。
+
+在管理界面中验证集群状态打开一个 Web 浏览器，输入地址 http://<任意一个节点的IP地址>:15672/ 即可查看 RabbitMQ 的管理界面。输入用户名和密码（默认为 guest 和 guest），进入管理界面。在 "Cluster Status" 页面上可以验证集群状态。应该可以看到三个节点，且所有节点都处于运行状态。
+现在，你已经成功地在 Docker 中搭建了 RabbitMQ 集群。你可以使用多个节点部署应用程序，以实现高可用性和扩展性。
+
