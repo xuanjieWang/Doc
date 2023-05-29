@@ -1,0 +1,19 @@
+rabbitmq笔记：
+rabbitMQ四大核心：生产者，交换机，队列，消费者
+AMQP协议四大核心：消息，没交换，队列，绑定。
+
+----------------------------------------docker安装rabbit---------------------------------------------
+docker安装rabbitmq：docker pull rabbitmq
+docker run -d --name my-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:latest
+docker exec -it <container_id> /bin/bash
+安装web管理插件：rabbitmq-plugins enable rabbitmq_management
+
+----------------------------------------rabbitmq工作原理---------------------------------------------
+交换机和队列的名称是不能相同的。
+相互隔离，不同用户之间创建的交换机是不可见的。
+生产者通过tcp连接到broker，broker是接收和分发消息的实体，vhost是一个虚拟主机，不同用户之间的隔离。
+每次连接占用一个管道，每一次连接可以多次发送消息。
+exchange：交换机，
+queue：存放消息的队列
+
+
