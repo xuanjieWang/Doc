@@ -1,5 +1,36 @@
 死信队列：无法被消费的消息，在某些时候由于特定的原因，队列中的消息无法消费，，就成了死信消息。当消息出现异常的时候，将消息投递到死信队列
 死信的来源：消息TTL过期，队列达到最大长度，消息被拒绝了
 
+ttl消息过期：生产者添加延迟生产
 
+        AMQP.BasicProperties properties = new AMQP.BasicProperties()
+                .builder().expiration("10000").build();
+
+        /***发送消息
+         * 1.交换机名和曾
+         * 2.队列名称
+         * 3.其他参数信息
+         * 4.发送消息的消息体
+         * **/
+        for (int i = 1; i < 1000; i++) {
+            String message = "info"+i;
+            System.out.println("发送消息： "+message);
+            channel.basicPublish(NORMAL_EXCHANGE,"normal", properties,message.getBytes());
+        }
+        
+队列最大长度：通过在普通队列中设置队列的长度参数：注册队列携带参数
+
+        //设置死信队列的参数，存储到hashmap中
+        Map<String,Object> arguments = new HashMap<>();
+        arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE);
+        arguments.put("x-dead-letter-routing-key","sixin");
+        //死信时间
+        arguments.put("x-message-ttl",10000);
+        //队列长度(超过长度就是死信队列)
+//        arguments.put("x-max-length",6);
+
+       channel.queueDeclare(NORMAL_QUEUE,false,false,false,arguments);
+       
+消息被拒绝：使用拒绝的方法，最后一个参数是不重新入队列
+       channel.basicReject(message.getEnvelope().getDeliveryTag(),false);
 
