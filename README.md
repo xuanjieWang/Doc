@@ -1,15 +1,17 @@
 # 学习笔记
 
-## 服务器
+## 1.Linux服务器
+
 ### Docker
 ### 操作系统
 
-## Python
 
-## java
+## 2.java
 ### mybatis
 
-## 前端
+## 3.Python
+
+## 4.前端
 ### vue
 ### react
 
