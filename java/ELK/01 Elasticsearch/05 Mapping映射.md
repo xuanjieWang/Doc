@@ -27,9 +27,8 @@ analyzer：
 2. index：属性指定是否索引   false：不进行创建索引
 3. store：是否在source之外进行存储    
 
-添加新字段
 ```
-PUT /book/_mapping
+添加新字段   PUT /book/_mapping
 {
   "properties": {
     "new_field":{
@@ -38,6 +37,11 @@ PUT /book/_mapping
     }
   }
 }
+scalling_factor:100   如果是一个小数的话存储整数
+复杂数据类型
+
 ```
+
+
 
 
