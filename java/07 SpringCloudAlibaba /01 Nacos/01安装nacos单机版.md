@@ -28,4 +28,6 @@ docker run --env MODE=standalone --name nacos -d -p 8848:8848 -p 9848:9848 -p 98
 - Spring Boot-2.3.2.RELEASE
 - Nacos-1.3.2
 **
-## 启动类添加@Enable
+## 启动类添加@EnableDiscoveryClient
+
+
