@@ -76,3 +76,5 @@ spring:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
 ```
 
+## 切换ap和cp模式
+curl -X PUT '$NACOS_SERVER:8848/nacos/v1/ns/operator/switches?entry=serverMode&value=CP'
