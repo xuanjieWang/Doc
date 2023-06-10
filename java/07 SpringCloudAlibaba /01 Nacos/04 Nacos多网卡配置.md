@@ -14,7 +14,31 @@ nacos.inetutils.ignored-interfaces[1]=eth1
 nacos.inetutils.preferred-networks[0]=30.5.124.
 nacos.inetutils.preferred-networks[0]=30.5.124.(25[0-5]|2[0-4]\\d|((1d{2})|([1-9]?\\d))),30.5.124.(25[0-5]|2[0-4]\\d|((1d{2})|([1-9]?\\d)))
 ```
-
+修改网卡
+```
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: ruoyi-gateway
+  profiles:
+    # 环境配置
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 172.27.173.253:8848
+      config:
+        # 配置中心地址
+        server-addr: 172.27.173.253:8848
+        ip: xxx.xxx.xxx
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+```
 
 
 
