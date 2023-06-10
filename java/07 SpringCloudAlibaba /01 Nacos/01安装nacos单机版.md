@@ -5,6 +5,7 @@
 - 早期的注册中心：Eureka最原始的注册中心，2.0有性能瓶颈
 - Zookeeper：支持，专业独立的产品，dubbo
 - Consul：go语言开发的
+
 **
 
 
