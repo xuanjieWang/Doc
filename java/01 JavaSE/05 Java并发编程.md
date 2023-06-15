@@ -174,7 +174,21 @@ jvm 让其持有偏向锁，并将 threadid 设置为其线程 id，再次进入
 
 ## synchronized 锁能降级吗？
 
+可以的。 具体的触发时机：在全局安全点（safepoint）中，执行清理任务的时候会触发尝试降级锁。
+当锁降级时，主要进行了以下操作：恢复锁对象的 markword 对象头；
+重置 ObjectMonitor，然后将该 ObjectMonitor 放入全局空闲列表，等待后续使用。
 
+## 了解ReentrantLock吗？
+ReetrantLock是一个可重入的独占锁，主要有两个特性，一个是支持公平锁和非公平锁，一个是可重 入。
+ReetrantLock实现依赖于AQS(AbstractQueuedSynchronizer)。
+ReetrantLock主要依靠AQS维护一个阻塞队列，多个线程对加锁时，失败则会进入阻塞队列。等待唤 醒，重新尝试加锁。
+
+## ReadWriteLock是什么？
+首先ReentrantLock某些时候有局限，如果使用ReentrantLock，可能本身是为了防止线程A在写数据、 线程B在读数据造成的数据不一致，但这样，如果线程C在读数据、线程D也在读数据，读数据是不会改
+变数据的，没有必要加锁，但是还是加锁了，降低了程序的性能。
+
+因为这个，才诞生了读写锁ReadWriteLock。ReadWriteLock是一个读写锁接口， ReentrantReadWriteLock是ReadWriteLock接口的一个具体实现，实现了读写的分离，读锁是共享的，
+写锁是独占的，读和读之间不会互斥，读和写、写和读、写和写之间才会互斥，提升了读写的性能
 
 
 
