@@ -25,7 +25,7 @@ npn install @type/node
 找到配置文件tsconfig.json文件，编译项添加配置项
 ```typescript
     "baseUrl": ".",
-    "paths":{
-      "@/":["src/*"]
-    }
+    "paths": {
+      "@/*": ["src/*"]
+    },
 ```
