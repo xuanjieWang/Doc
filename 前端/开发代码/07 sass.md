@@ -20,3 +20,5 @@ export default defineConfig((config) => {
 }
 ```
 **`@import "./src/styles/variable.less";`后面的`;`不要忘记，不然会报错**!
+
+
