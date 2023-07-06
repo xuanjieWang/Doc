@@ -10,4 +10,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 ```
+## 使用方式
+ icon: "Promotion",//菜单文字左侧的图标,支持element-plus全部图标
 
