@@ -1,4 +1,6 @@
-## 配置elementPlus
+## 引入 配置elementPlus        
+#### npm install element-plus
+
 ```typestript
 import { createApp } from 'vue'
 //@ts-ignore忽略当前文件ts类型的检测否则有红色提示(打包会失败)
