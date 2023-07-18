@@ -86,6 +86,8 @@ export default {
 2. imaferLayer：设置透明度亮度
 3. imagerProvider类：核心类
 4. UrlTemplateImageryProvider：通过url加载地图
+
+#### 加载高德地图
 ```js
     var layer = new Cesium.UrlTemplateImageryProvider({
         url: "http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
@@ -93,6 +95,18 @@ export default {
         maximumLevel: 18
     })
     viewer.imageryLayers.addImageryProvider(layer);
+```
+
+#### 加载OSM地图
+```js
+    var osm = new Cesium.OpenStreetMapImageryProvider({
+        url: "https://a.tile.openstreetmap.org/",
+        minimumLevel: 0,
+        maximumLevel: 18,
+        fileExtension: "png"
+    })
+    viewer.imageryLayers.addImageryProvider(osm)
+
 ```
 
 
