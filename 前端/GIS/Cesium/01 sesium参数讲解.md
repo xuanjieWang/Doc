@@ -74,3 +74,9 @@ export default {
     // viewer.scene.globe.terrainExaggeration = 2.0;   //相对高度
     // viewer.scene.globe.terrainExaggerationRelativeHeight = 3000;
 ```
+####  imagery创建影响图层类
+1. imagerLayerCollection类 可以装载放置多个imagerLayer或者imagerprovide类对象
+2. imaferLayer：设置透明度亮度
+3. imagerProvider类：核心类
+
+###### Cesium将图叫做imagery，但是不包括卫星影响数据，还包括互联网地图，tms，wms，wmts单个图片
