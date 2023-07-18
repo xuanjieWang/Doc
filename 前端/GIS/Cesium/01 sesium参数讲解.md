@@ -65,6 +65,13 @@ export default {
     //世界地形
     // var cesium = new Cesium.CesiumTerrainProvider()
     // viewer.terrainProvider = cesium
+
+    //加载水地图
+    // var tee = Cesium.createWorldTerrainAsync({
+    //     requestWaterMask: true,
+    //     requestVertexNormals: true,
+    // });
+    // viewer.terrainProvider = tee
 ```
 
 #### 其他参数
