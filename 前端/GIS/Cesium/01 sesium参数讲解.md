@@ -78,5 +78,15 @@ export default {
 1. imagerLayerCollection类 可以装载放置多个imagerLayer或者imagerprovide类对象
 2. imaferLayer：设置透明度亮度
 3. imagerProvider类：核心类
+4. UrlTemplateImageryProvider：通过url加载地图
+```js
+    var layer = new Cesium.UrlTemplateImageryProvider({
+        url: "http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+        minimumLevel: 4,
+        maximumLevel: 18
+    })
+    viewer.imageryLayers.addImageryProvider(layer);
+```
+
 
 ###### Cesium将图叫做imagery，但是不包括卫星影响数据，还包括互联网地图，tms，wms，wmts单个图片
