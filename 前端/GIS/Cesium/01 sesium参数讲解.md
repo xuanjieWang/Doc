@@ -43,3 +43,34 @@ export default {
 }
 </style>
 ```
+#### 开启水世界地图
+```js
+
+    var tee = Cesium.createWorldTerrain({
+        requestWaterMask: true,
+        requestVertexNormals: true,
+    });
+    viewer.terrainProvider = tee
+```
+#### 多种地图
+```js
+    //默认地图
+    // var ell = new Cesium.EllipsoidTerrainProvider();
+    // viewer.terrainProvider = ell
+
+    //arcGis地形
+    // var arc = new Cesium.ArcGISTiledElevationTerrainProvider();
+    // viewer.terrainProvider = arc
+
+    //世界地形
+    // var cesium = new Cesium.CesiumTerrainProvider()
+    // viewer.terrainProvider = cesium
+```
+
+#### 其他参数
+```js
+ viewer.scene.globe.depthTestAgainstTerrain = true; //开启深度测试
+    viewer.scene.globe.enableLighting = true;   //对大雾和雾启动照明效果
+    // viewer.scene.globe.terrainExaggeration = 2.0;   //相对高度
+    // viewer.scene.globe.terrainExaggerationRelativeHeight = 3000;
+```
