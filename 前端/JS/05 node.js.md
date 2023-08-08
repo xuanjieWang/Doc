@@ -62,3 +62,25 @@ fs.readFile('./test.txt', 'utf-8', (err, data) => {
 })
 
 ```
+## path模块
+path.join：将多个路径拼接
+path.basename()：将文件夹路径解析出来
+
+```js
+const path = require('path')
+
+const pathStr = path.join('/a', '/b/c', '../')
+console.log(pathStr);
+```
+
+```js
+function resolveCSS(htmlStr) {
+    const r1 = refScript.exec(htmlStr)
+    const newCSS = r1[0].replace('<style>', '').replace('</style>', '')
+    fs.watchFile(path.join(__dirname, '/clock/index.css'), newCss, err => {
+        if (err) return
+        console.log("css写入成功")
+    })
+}
+
+```
