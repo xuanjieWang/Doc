@@ -32,3 +32,14 @@ let var const 都是生命变量的关键字
 
 以上是 let、var 和 const 的一些主要区别。在实际开发中，可以根据具体情况选择合适的关键字来声明变量。
 建议在全局作用域下尽可能使用 const 来声明常量，在局部作用域下使用 let 来声明变量。而 var 声明变量的用法已经越来越少，推荐尽可能使用 let 和 const 来代替它。
+
+	5). vue包含一系列的扩展插件(库):
+		* vue-cli: vue脚手架
+		* vue-resource(axios): ajax请求
+		* vue-router: 路由
+		* vuex: 状态管理
+		* vue-lazyload: 图片懒加载
+		* vue-scroller: 页面滑动相关
+		* mint-ui: 基于vue的组件库(移动端)
+		* element-ui: 基于vue的组件库(PC端)
+  
