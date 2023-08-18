@@ -76,5 +76,10 @@ $ls -l aPackage.a
 2. 反收的go代码是的程序运行变慢
 3. 反射错误在编译时无法捕获
 
+### "flag"
+### bufio包 缓冲输入输出适合读取文本文件
+### 从/dev/random中读取 系统参数
 
-
+### 复合数据类型 String
+1. 创建只读的数据类型String.NewReader()
+2. 
