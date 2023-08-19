@@ -82,4 +82,4 @@ $ls -l aPackage.a
 
 ### 复合数据类型 String
 1. 创建只读的数据类型String.NewReader()
-2. 
+2. 数据类型
