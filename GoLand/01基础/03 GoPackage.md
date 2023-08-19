@@ -83,3 +83,36 @@ $ls -l aPackage.a
 ### 复合数据类型 String
 1. 创建只读的数据类型String.NewReader()
 2. 数据类型
+
+### 文件权限：输出任何文件的权限  使用OS库  os.orgs   os.Stat(filename)
+go语言中go run main.go arg1 arg2 arg3使用os.args获取执行的参数
+
+### unix管道编程
+1. 管道是单向通信的
+2. 只能在共同的祖先进程之间使用，Unix管道之后是，如果没有处理的文件，就从输入流中等待，
+```go
+//遍历目录树
+package main import (
+"flag" "fmt" "os"
+"path/filepath"
+)
+ar minusD bool = false var minusF bool = false
+func walk(path string, info os.FileInfo, err error) error { fileInfo, err := os.Stat(path) if err != nil { return err
+}
+mode := fileInfo.Mode() if mode.IsRegular() && minusF { fmt.Println("+", path) return nil
+}
+if mode.IsDir() && minusD { fmt.Println("*", path) return nil
+}
+fmt.Println(path)
+return nil
+}
+func main() { starD := flag.Bool("d", false, "Signify directories") plusF := flag.Bool("f", false, "Signify regular files") flag.Parse()
+flags := flag.Args() Path := "." if len(flags) == 1 { Path = flags[0]
+}
+
+minusD = *starD minusF = *plusF
+err := filepath.Walk(Path, walk) if err != nil {
+fmt.Println(err) os.Exit(1)
+} }
+```
+
