@@ -1,6 +1,6 @@
 ## Git lab是一个源码托工具，使用git为代码管理工具，在基础上搭建web服务。
 
---- txt
+--- java
 1.docker 安装gitlab： docker pull gitlab/gitlab-ce
 docker exec -it gitlab bash
 查看dockerlab密码： cat /etc/gitlab/initial_root_password
