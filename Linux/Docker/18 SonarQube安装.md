@@ -2,7 +2,9 @@
 
 1. docker拉起postgre sql 和sonarqube：9.9-community镜像
 2. 创建文件夹编写docker-cpmpose文件
-3. 
+3. 使用docker-compose up -d编排
+4. 启动错误添加 /etc/sysctl.conf  vm.max_map_count=262144
+5. 设置密码安装中文插件
 
 
 ```php
