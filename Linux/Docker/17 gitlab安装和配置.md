@@ -8,8 +8,8 @@ docker exec -it gitlab bash
 ```yaml
 services:
   gitlab:
-    image: gitlab/gitlab-ce
-    container_name: xj-gitlab
+    image: gitlab/gitlab-ce    #镜像名称
+    container_name: xj-gitlab  
     restart: always
     environment:
       GitLAB_OMNIBUS_CONFIG: |
