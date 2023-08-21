@@ -5,6 +5,7 @@ docker exec -it gitlab bash
 查看dockerlab密码： cat /etc/gitlab/initial_root_password
 
 ## 2.创建一个文件夹执行dockercompos文件： 编写dockercompose
+``` yml
 services:
   gitlab:
     image: gitlab/gitlab-ce
@@ -21,7 +22,7 @@ services:
       - ./config:/ect/gitlab
       - ./logs:/var/log/gitlab
       - ./data:/var/opt/gitlab
-  
+  ```
   ## 3.执行docker-compose up -d
   
   ## 4.进入容器查看密码：docker exec -it gitlab bash
