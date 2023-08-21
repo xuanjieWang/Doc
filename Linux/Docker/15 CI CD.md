@@ -11,7 +11,7 @@
 7. 构建结果提醒到钉钉
 
 ---java
-### 安装gitlab
+### 安装gitlab 需要安装docker 和dockercompose
 docker 安装gitlab： docker pull gitlab/gitlab-ce
 docker exec -it gitlab bash
 查看dockerlab密码： cat /etc/gitlab/initial_root_password
