@@ -1,4 +1,4 @@
-### 安装docker
+# 安装docker
 1.	需要一点Linux,Centos7,需要先安装yum，使用xshell连接远程服务进行操作
 环境查看（系统内核是3.10以上的）
 查看系统的详细信息(Centos7) cat /etc/os-release
