@@ -1,10 +1,10 @@
 ## Git lab是一个源码托工具，使用git为代码管理工具，在基础上搭建web服务。
 
-1.docker 安装gitlab： docker pull gitlab/gitlab-ce
+## 1.docker 安装gitlab： docker pull gitlab/gitlab-ce
 docker exec -it gitlab bash
 查看dockerlab密码： cat /etc/gitlab/initial_root_password
 
-2.创建一个文件夹执行dockercompos文件：
+## 2.创建一个文件夹执行dockercompos文件： 编写dockercompose
 services:
   gitlab:
     image: gitlab/gitlab-ce
@@ -22,7 +22,7 @@ services:
       - ./logs:/var/log/gitlab
       - ./data:/var/opt/gitlab
   
-  3.执行docker-compose up -d
+  ## 3.执行docker-compose up -d
   
-  4.进入容器查看密码：docker exec -it gitlab bash
-查看dockerlab密码： cat /etc/gitlab/initial_root_password
+  ## 4.进入容器查看密码：docker exec -it gitlab bash
+## 查看dockerlab密码： cat /etc/gitlab/initial_root_password
