@@ -1,3 +1,5 @@
+## Docker常用命令
+```rust
 docker pull redis   docker rmi redis      docker ps -a  docker stop myredis
 docker run --name myredis -d redis
 伪终端的方式运行：docker run --name myredis -it -p tomcat    -it 伪终端方式   -d守护进程方式
@@ -25,6 +27,11 @@ docker pause：可以暂停容器对外提供服务
 docker create：创建一个容器但是不运行
 
 容器退出的状态码    0：正常退出  1-128：容器内部错误    129-255：非正常退出，收到终止信号之后进行退出
+
+
+```
+
+
 
 
 
