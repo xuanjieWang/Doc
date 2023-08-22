@@ -18,13 +18,16 @@
 7. jenkins安装sonarqube scanner插件，代码扫描工具，扫描代码的质量，将代码结果扫描到服务器上面。
 8. jenkins添加目标服务器，ssh的方式连接
 
-## 集成gitlab
+## idea集成gitlab，实现本地代码推送
 1. gitlab: 9999-root  jenkins-8080-xj  Sonar-Qube:9000-admin   harbar:80-admin
 2. 将gitlab和harbar集成到jenkins中。完成持续交付和持续部署。将代码推送到gitlab，jenkins在项目中，将项目拉取到jenkins本地，自动打包，构建镜像（docker file），docker compose跑项目
-3. 搭建一个springBoot项目。在gitlab中添加项目。gitlab创建用户
-4. PS C:\Users\WXJ\Project\hellojks> git config --global user.name "Adminstrator"
-5. PS C:\Users\WXJ\Project\hellojks> git config --global user.email "2071985621@qq.com"
+3. 在gitlab中创建git仓库，获取到http连接的地址
+4. 使用idea创建本地git，提交的时候url是gitlab的仓库地址，点击提交添加gitlab登录密码
+5. git config --global user.name "Adminstrator"
+6. git config --global user.email "2071985621@qq.com"
+7. 代码成功推送到gitlab
 
+## jenkins集成gitlab
 1. 将代码提交到远程的gitlab
 2. 在jenkins中创建任务，创建自由风格的项目
 3. 创建 的项目之后需要打包，添加构建步骤，clean package--DskipTests
