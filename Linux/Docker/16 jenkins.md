@@ -16,6 +16,7 @@
 5. 源码存放的位置：sonal.source=./
 6. 需要编译过的二进制文件目录(jar包)：sonar.java.binaries=./target
 7. jenkins安装sonarqube scanner插件，代码扫描工具，扫描代码的质量，将代码结果扫描到服务器上面。
+8. jenkins添加目标服务器，ssh的方式连接
 
 ## 集成gitlab
 1. gitlab: 9999-root  jenkins-8080-xj  Sonar-Qube:9000-admin   harbar:80-admin
