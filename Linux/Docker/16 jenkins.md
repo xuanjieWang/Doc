@@ -29,8 +29,8 @@
 3. 创建 的项目之后需要打包，添加构建步骤，clean package--DskipTests
 4. 创建Sonar Qube中将提交的代码进行代码检测。会出现悬虚镜像，push 到gitlab中，每一次提交都会打包会新增一个悬虚镜像，
 
-jenkins容器化：实现方案，在 容器内部安装docker（不适用），与宿主机共享docker。
-修改docker.sock权限：/var/run/docker.sock  chown root:root docker.sock              chmod o+rw docker.sock
+### jenkins容器化：实现方案，在 容器内部安装docker（不适用），与宿主机共享docker。
+### 修改docker.sock权限：/var/run/docker.sock  chown root:root docker.sock              chmod o+rw docker.sock
 
 1. 修改配置文件：
 2. 将target目录下面的jar包移动到docker目录：mv target/*.jar docker
