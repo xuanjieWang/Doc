@@ -1,23 +1,24 @@
-安装jenkins
+## 安装jenkins
 
-docker pull jenkins/jenkins:2.387.1
-docker run --name jenkins --restart always -p 8080:8080 -p 50000:50000 -v /var/jenkins_home/:var/jenkins_home -d jenkins/jenkins:2.387.1
-chmod -R 777 /var/jenkins_home
+1. docker pull jenkins/jenkins:2.387.1
+3. chmod -R 777 /var/jenkins_home
+3. docker run --name jenkins --restart always -p 8080:8080 -p 50000:50000 -v /var/jenkins_home/:var/jenkins_home -d jenkins/jenkins:2.387.1
+4. 将maven和jdk移动到jenkins_home目录下面
+5. 安装jenkins插件Publish Over SSH，和Git Parameter
+6. 进入虚拟机jenkins文件夹：修改Jenkins下载地址   vim hudson.model.UpdateCenter.xml
+<url>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/current/update-center.json</url>
 
-查看jenkins密码：
+## 安装sonar-scanner
+1. 下载sonar-scanner在官网下载，传到服务器上面，移动到jenkins服务器挂载目录，进入conf目录，修改properties文件
+2. 配置端口号：：9000
+3. sonal.source=./
+4. sonar.java.binaries=./target
 
-进入虚拟机jenkins文件夹：修改Jenkins下载地址   vim hudson.model.UpdateCenter.xml
- <url>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/current/update-center.json</url>
-
-下载sonar-scanner在官网下载，传到服务器上面，移动到jenkins服务器挂载目录，进入conf目录，修改properties文件
-配置端口号：：9000
-sonal.source=./
-sonar.java.binaries=./target
-
+## 集成gitlab
 gitlab: 9999-root  jenkins-8080-xj  Sonar-Qube:9000-admin   harbar:80-admin
 将gitlab和harbar集成到jenkins中。完成持续交付和持续部署。将代码推送到gitlab，jenkins在项目中，将项目拉取到jenkins本地，自动打包，构建镜像（docker file），docker compose跑项目
 
-搭建一个springBoot项目。在gitlab中添加项目。gitlab创建用户，
+搭建一个springBoot项目。在gitlab中添加项目。gitlab创建用户
 PS C:\Users\WXJ\Project\hellojks> git config --global user.name "Adminstrator"
 PS C:\Users\WXJ\Project\hellojks> git config --global user.email "2071985621@qq.com"
 
@@ -41,5 +42,4 @@ docker tar hellojks
 jenkins通知目标服务器：使用kenkins通知目标服务器。定义脚本文件
 
 流水线任务helloworld：流水线是根据jenkins构建阶段的清晰显示，用户可以通过可视化的操作方式轻松查看。
-软件配置管理：
 
