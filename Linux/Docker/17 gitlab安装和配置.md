@@ -12,7 +12,7 @@ services:
     container_name: xj-gitlab  
     restart: always
     environment:
-      GitLAB_OMNIBUS_CONFIG: |
+      GITLAB_OMNIBUS_CONFIG: |
         external_url 'http:/172.27.173.253:9999'
         gitlab_rails['gitlab_shell_ssh_port']=2222
     ports:
