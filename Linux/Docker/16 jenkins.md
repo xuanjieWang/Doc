@@ -87,10 +87,10 @@ services:
    -v /var/jenkins_home:/var/jenkins_home \
    -v /var/run/docker.sock:/var/run/docker.sock \
    -v /usr/bin/docker:/usr/bin/docker \
-   -v /etc/docker/daemo.json:/etc/docker/daemo.json \
-   -d jenkins/jenkins:2.387.1-lts
+   -v /etc/docker/daemo.json:/etc/docker/daemon.json \
+   -d jenkins/jenkins:2.387.1
    ```
-
+## jenkins构建本地构建镜像，并推送到harbar
 1. 修改配置文件：
 2. 将target目录下面的jar包移动到docker目录：mv target/*.jar docker
 3. 构建镜像：docker build -d helldjks.docker /
