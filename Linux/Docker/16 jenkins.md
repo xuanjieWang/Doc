@@ -50,7 +50,7 @@
 1. 在项目中添加dockerCompose文件（需要远程服务器有jdk环境）
 2. 添加dockerfile文件，dockerfile中的FROM一定是一个docker image
 
-```dockerfileFROM
+``` yml
 FROM openjdk:8u102
 LABEL auth="wangxuanjie"
 COPY helloJenkins-0.0.1-SNAPSHOT.jar /usr/local/jenkins/jks.jar
@@ -58,7 +58,7 @@ WORKDIR /usr/local/jenkins
 ENTRYPOINT ["java","-jar","jks.jar"]
 ```
 
-```dockercompose
+``` yml
 services:
   helloJks:
     build: ./
