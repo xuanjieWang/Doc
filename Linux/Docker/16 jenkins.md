@@ -95,10 +95,22 @@ services:
 2. 移除掉原本ssh到目标服务器。
 3. 将target目录下面的jar包移动到docker目录：mv target/*.jar docker
 4. 构建镜像：docker build -t helldjks docker /
-5. 登录harbor： docker login -u amdin -p 1111
-6. docker tar hellojks
+5. 登录harbor： docker login -u amdin -p root 192.168.233.128
+6. docker tag hellojks 192.168.233.128/jks/jks
 7. 清除悬虚镜像：docker image prune -f
 8. 将镜像推送到harbor: docker push
 9. jenkins通知目标服务器：使用kenkins通知目标服务器。定义脚本文件
 10. 流水线任务helloworld：流水线是根据jenkins构建阶段的清晰显示，用户可以通过可视化的操作方式轻松查看。
+
+``` yml
+移动文件到docker目录
+使用docker build将jar达成jks镜像
+登录harbor ， 将镜像推送上去
+mv target/*.jar docker
+docker build -t jks docker/
+docker login -u admin -p root 192.168.233.128
+docker tag jks 192.168.233.128/jks/jks
+docker image prune -f
+docker push 192.168.233.128/jks/jks
+```
 
