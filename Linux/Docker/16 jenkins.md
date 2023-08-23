@@ -79,7 +79,7 @@ services:
    chown root:root docker.sock
    chmod o+rw docker.so ck
 
-  
+   // jenkins容器化步骤
    docker run --name jenkins \
    --restart=always \
    -p 8080:8080 \
@@ -89,7 +89,6 @@ services:
    -v /usr/bin/docker:/usr/bin/docker \
    -v /etc/docker/daemo.json:/etc/docker/daemo.json \
    -d jenkins/jenkins:2.387.1-lts
-
    ```
 
 1. 修改配置文件：
