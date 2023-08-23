@@ -49,6 +49,7 @@
 ## 实现将推送过去的jar包实现自动化部署
 1. 在项目中添加dockerCompose文件（需要远程服务器有jdk环境）
 2. 添加dockerfile文件，dockerfile中的FROM一定是一个docker image
+3. 将之间运行的容器删除,清除悬虚镜像，每一次提交过去之后都会覆盖前一次的镜像：docker image prune -f
 
 ### Dockerfile
 ``` yml
@@ -69,8 +70,10 @@ services:
       - 8080:8080
 ```
 
-## jenkins容器化：实现方案，在 容器内部安装docker（不适用），与宿主机共享docker。
-## 修改docker.sock权限：/var/run/docker.sock  chown root:root docker.sock              chmod o+rw docker.sock
+## jenkins容器化：
+1. 实现方案，在 容器内部安装docker（不适用），与宿主机共享docker。
+2. 修改docker.sock权限：/var/run/docker.sock  chown root:root docker.sock
+3. chmod o+rw docker.sock
 
 1. 修改配置文件：
 2. 将target目录下面的jar包移动到docker目录：mv target/*.jar docker
