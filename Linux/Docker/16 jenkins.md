@@ -1,5 +1,4 @@
 ## 安装jenkins
-
 1. docker pull jenkins/jenkins:2.387.1
 3. chmod -R 777 /var/jenkins_home
 3. docker run --name jenkins --restart always -p 8080:8080 -p 50000:50000 -v /var/jenkins_home/:var/jenkins_home -d jenkins/jenkins:2.387.1
@@ -8,8 +7,8 @@
 6. 进入虚拟机jenkins文件夹：修改Jenkins下载地址   vim hudson.model.UpdateCenter.xml
 <url>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/current/update-center.json</url>
 
-## 安装sonar-scanner
-1. 下载sonar-scanner在官网下载，源码文件里面，传到服务器上面，移动到jenkins服务器挂载目录，进入conf目录，修改properties文件
+## 安装jenkins 整合 sonar-scanner 安装插件整合sonarqube
+1. 下载sonar-scanner在官网下载，源码文件里面，传到服务器上面，移动到/var/jenkins_home服务器挂载目录，进入conf目录，修改properties文件
 2. 解压，移动sonar-scanner移动到jenkins_home下面
 3. 进入到sonar-scanner配置文件，vim conf/sonar-scanner.properties，
 4. 配置端口号和url，字符集编码
@@ -29,9 +28,17 @@
 
 ## jenkins集成gitlab
 1. 将代码提交到远程的gitlab
-2. 在jenkins中创建任务，创建自由风格的项目
-3. 创建 的项目之后需要打包，添加构建步骤，clean package--DskipTests
-4. 创建Sonar Qube中将提交的代码进行代码检测。会出现悬虚镜像，push 到gitlab中，每一次提交都会打包会新增一个悬虚镜像，
+2. 在jenkins中创建任务，创建自由风格的项目，在设置中添加源码管理，添加git地址
+3. 创建的项目之后需要打包，添加构建后的步骤，添加mavne，添加步骤清理和打包clean package--DskipTests
+4. 点击构建项目，构建项目成功。可以看见在/var/jenkins_home目录下面生成了target目录。
+
+## jenkins添加代码监测Sonar Qube
+1. 创建Sonar Qube中将提交的代码进行代码检测。会出现悬虚镜像，push 到gitlab中，每一次提交都会打包会新增一个悬虚镜像，
+2. 执行代码(手工检测)：/var/jenkins_home/sonarScanner/bin/sonar-scanner Dsonar.login=admin Dsonar.password=wxj150038 Dsonar.projectKey=xj_jenkins
+3. 配置自动检测：Jenkins中添加构建后的流程，Execute SonarQube Scanner 指定jdk
+4. 在Analysis properties执行参数中添加  sonar.login=admin  sonar.password=wxj50038  sonar.projectKey=${JOB_NAME}  (当前项目的名称可以指定)
+5. 需要在jenkins首页配置sonarQube的地址，确保构建后的sonarQube登录信息是否正确。
+6. 删除构建之后的隐藏文件.scannerwork
 
 ## jenkins容器化：实现方案，在 容器内部安装docker（不适用），与宿主机共享docker。
 ## 修改docker.sock权限：/var/run/docker.sock  chown root:root docker.sock              chmod o+rw docker.sock
