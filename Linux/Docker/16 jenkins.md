@@ -40,6 +40,35 @@
 5. 需要在jenkins首页配置sonarQube的地址，确保构建后的sonarQube登录信息是否正确。
 6. 删除构建之后的隐藏文件.scannerwork
 
+## 将jenkins中代码检测之后的代码 添加构建后操作，将target使用ssh推到目标服务器
+1. 因为是对其他服务器推送target
+2. 添加构建后的操作，添加send build artifacts over SSH
+3. 添加SSH Servier Name 是Jenkins配置中的远程SSH
+4. 添加Transfer Ser Source files中的第一个  target/*.jar
+
+## 实现将推送过去的jar包实现自动化部署
+1. 在项目中添加dockerCompose文件（需要远程服务器有jdk环境）
+2. 添加dockerfile文件，dockerfile中的FROM一定是一个docker image
+
+```dockerfileFROM
+FROM openjdk:8u102
+LABEL auth="wangxuanjie"
+COPY helloJenkins-0.0.1-SNAPSHOT.jar /usr/local/jenkins/jks.jar
+WORKDIR /usr/local/jenkins
+ENTRYPOINT ["java","-jar","jks.jar"]
+```
+
+```dockercompose
+services:
+  helloJks:
+    build: ./
+    image: jks
+    container_name: myhellojks
+    ports:
+      - 8080:8080
+```
+
+
 ## jenkins容器化：实现方案，在 容器内部安装docker（不适用），与宿主机共享docker。
 ## 修改docker.sock权限：/var/run/docker.sock  chown root:root docker.sock              chmod o+rw docker.sock
 
