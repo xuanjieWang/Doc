@@ -107,10 +107,26 @@ services:
 使用docker build将jar达成jks镜像
 登录harbor ， 将镜像推送上去
 mv target/*.jar docker
-docker build -t jks docker/
+docker build -t hellojks docker/
 docker login -u admin -p root 192.168.233.128
-docker tag jks 192.168.233.128/jks/jks
+docker tag hellojks 192.168.233.128/jks/1
 docker image prune -f
-docker push 192.168.233.128/jks/jks
+docker push 192.168.233.128/jks/1
 ```
-
+## 通知目标服务器。目标服务器订阅脚本文件，拉取harbar文件，将代码拉取并运行
+1. 目标服务器连接到harbar vim /etx/docker/daemon.json
+2. 编写shell脚本： cd /usr/localhost/bin
+``` shell
+echo "开始执行脚本"
+docker login -u admin -p root 192.168.233.128
+docker pull 192.168.233.128/jks/1
+exist_container_id=$(docker ps --format "{{.ID}}\t{{.Names}}" | grep "jks" | awk '{print $1}')
+if [ "$exist_container_id" != " " ]; then
+        docker stop $exist_container_id
+        docker rm $exist_container_id
+        echo "镜像$exist_container_id删除成功"
+fi
+docker run --name jks -dp 8081:8080 192.168.233.128/jks/1
+echo "镜像拉取完毕 启动成功"
+```
+3. 最后在jenkins中添加ssh，运行远程主机的命令
