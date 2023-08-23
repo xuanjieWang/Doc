@@ -70,10 +70,12 @@ services:
       - 8080:8080
 ```
 
-## jenkins容器化：
-1. 实现方案，在 容器内部安装docker（不适用），与宿主机共享docker。
-2. 修改docker.sock权限：/var/run/docker.sock  chown root:root docker.sock
-3. chmod o+rw docker.sock
+## jenkins容器化：在jenkins中使用docker构建镜像
+1. 在生产环境中推送jar包很浪费资源，将docker build环节在jenkins中完成，直接推送到harbor中
+2. 其他的服务器进行拉取。
+3. 实现方案，1DIOD在容器内部安装docker（不适用），2DOOD与宿主机共享docker。
+4. 修改docker.sock权限：/var/run/docker.sock  chown root:root docker.sock
+5. chmod o+rw docker.sock
 
 1. 修改配置文件：
 2. 将target目录下面的jar包移动到docker目录：mv target/*.jar docker
