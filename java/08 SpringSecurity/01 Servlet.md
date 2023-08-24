@@ -1,4 +1,5 @@
-## Servlet 过滤器（Servlet Filter）是 Java Web 开发中用来对请求进行预处理和后处理的组件。它可以拦截客户端发送的请求，进行一些处理操作，再将请求传递给目标 Servlet 进行处理，最后再拦截响应进行进一步处理或修改。
+## Servlet 过滤器（Servlet Filter）
+#### Java Web 开发中用来对请求进行预处理和后处理的组件。它可以拦截客户端发送的请求，进行一些处理操作，再将请求传递给目标 Servlet 进行处理，最后再拦截响应进行进一步处理或修改。
 1. 客户端发送请求到服务端
 2. 服务端接收到请求根据URL匹配过滤器
 3. 过滤器对请求预处理，可以执行一些通用的操作，比如认证、日志记录、字符编码处理等。
@@ -8,4 +9,6 @@
 7. 过滤器可以对响应进行后处理，例如修改响应内容、设置响应头等。
 8. 最终响应返回给客户端。
 
-### AuthenticationContextHolder
+### AuthenticationContextHolder 中使用  Authentication
+1. AuthenticationContextHolder 是一个线程私有的变量，存储的是每一个用户的身份信息
+2. java中一个线程只能同时处理一个请求，所有这个线程就维护的是一个
