@@ -1,4 +1,4 @@
-## UserDetailsServiceImpl implements UserDetailsService
+## 1. 用户认证实现 UserDetailsServiceImpl implements UserDetailsService
 
 #### 实现用户的登录认证；通过查询数据库
 ```java
@@ -72,7 +72,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
 ```
 
 
-### 密码验证逻辑
+#### 1.1 密码验证逻辑
 #### yml配置信息
 ``` yml
 # 用户配置
@@ -112,7 +112,7 @@ user:
         return createLoginUser(user);
     }
 ```
-## 认证失败的处理类        AuthenticationEntryPointImpl   implement     AuthenticationEntryPoint
+## 2. 认证失败的处理类        AuthenticationEntryPointImpl   implement     AuthenticationEntryPoint
 1. 认证失败,封装统一的返回结果
 2. AuthenticationEntryPoint接口是用户处理认证失败的方法，实现commence方法
 
@@ -133,10 +133,10 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
 }
 
 ```
-## 退出处理类        LogoutSuccessHandlerImpl     implements     LogoutSuccessHandler
-1.  从token获取到用户的登录信息
-2.  从redis中删除用户的登录信息
-3.  使用异步的方式记录退出的信息：
+## 3. 用户退出处理类        LogoutSuccessHandlerImpl     implements     LogoutSuccessHandler
+1.  从token获取到用户的登录信息    tokenService.getLoginUser(request);
+2.  从redis中删除用户的登录信息    tokenService.delLoginUser(loginUser.getToken());
+3.  使用异步的方式记录退出的信息：   AsyncManager.me().execute
 
 ``` java
 package com.ruoyi.framework.security.handle;
@@ -193,3 +193,16 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler
 }
 
 ```
+
+## 4. token认证过滤器    JwtAuthenticationTokenFilter   extends OncePerRequestFilter    继承
+1. 每次请求的时候，根据SecurityUtils.getAuthentication()判断当前用户是否已经登录
+2. 验证token的有效性，权限，刷新用户的token过期时间。
+
+SecurityContextHolder具有以下主要功能：
+
+存储和访问安全上下文：SecurityContextHolder使用ThreadLocal来存储当前线程的安全上下文。ThreadLocal是一个线程私有的变量，保证了安全上下文的线程隔离性。通过SecurityContextHolder，可以方便地在应用程序中的任何位置访问当前用户的安全上下文。
+
+获取当前认证的用户信息：SecurityContextHolder提供了静态方法来获取当前认证的用户信息。例如，可以使用SecurityContextHolder.getContext().getAuthentication()方法获取表示当前认证用户的Authentication对象。
+
+设置安全上下文：SecurityContextHolder还提供了方法来设置安全上下文，以便在需要时手动更改当前用户的身份或权限信息。
+
