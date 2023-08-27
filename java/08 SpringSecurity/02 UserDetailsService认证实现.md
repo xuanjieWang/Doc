@@ -197,12 +197,49 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler
 ## 4. token认证过滤器    JwtAuthenticationTokenFilter   extends OncePerRequestFilter    继承
 1. 每次请求的时候，根据SecurityUtils.getAuthentication()判断当前用户是否已经登录
 2. 验证token的有效性，权限，刷新用户的token过期时间。
+3. 存储和访问安全上下文：SecurityContextHolder使用ThreadLocal来存储当前线程的安全上下文。ThreadLocal是一个线程私有的变量，保证了安全上下文的线程隔离性。通过SecurityContextHolder，可以方便地在应用程序中的任何位置访问当前用户的安全上下文。
+4. 获取当前认证的用户信息：SecurityContextHolder提供了静态方法来获取当前认证的用户信息。例如，可以使用SecurityContextHolder.getContext().getAuthentication()方法获取表示当前认证用户的Authentication对象。
+5. 设置安全上下文：SecurityContextHolder还提供了方法来设置安全上下文，以便在需要时手动更改当前用户的身份或权限信息。
 
-SecurityContextHolder具有以下主要功能：
+## 跨域过滤器     CorsFilter extends OncePerRequestFilter 
+1. 使用springBean的方式管理跨域，注入CrosFilter对象
+2. CorsFilter extends OncePerRequestFilter实现了一个请求只过滤一次的请求，
 
-存储和访问安全上下文：SecurityContextHolder使用ThreadLocal来存储当前线程的安全上下文。ThreadLocal是一个线程私有的变量，保证了安全上下文的线程隔离性。通过SecurityContextHolder，可以方便地在应用程序中的任何位置访问当前用户的安全上下文。
+```java
+@Bean
+    public CorsFilter corsFilter()
+    {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        // 设置访问源地址
+        config.addAllowedOriginPattern("*");
+        // 设置访问源请求头
+        config.addAllowedHeader("*");
+        // 设置访问源请求方法
+        config.addAllowedMethod("*");
+        // 有效期 1800秒
+        config.setMaxAge(1800L);
+        // 添加映射路径，拦截一切请求
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        // 返回新的CorsFilter
+        return new CorsFilter(source);
+    }
+```
 
-获取当前认证的用户信息：SecurityContextHolder提供了静态方法来获取当前认证的用户信息。例如，可以使用SecurityContextHolder.getContext().getAuthentication()方法获取表示当前认证用户的Authentication对象。
-
-设置安全上下文：SecurityContextHolder还提供了方法来设置安全上下文，以便在需要时手动更改当前用户的身份或权限信息。
-
+## GenericFilterBean implements Filter, BeanNameAware, EnvironmentAware
+1. 首先检测对象是不是httpservletrequest类型的，是的话就进行
+2. 检查当前的类是不是过滤过，request.getAttribute()，获取到一个属性，根据属性判断有没有经过过滤器。
+3. 如果已经过滤过，就获取到调度类型，类型不同报错，相同执行之后的过滤器
+4. 没有执行过，执行逻辑。解决跨域的方式是在请求头中设置
+### springsecurity中设置了拦截器的执行顺序
+```java
+    // 添加Logout filter
+        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
+        // 添加JWT filter
+        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        // 添加CORS filter
+        httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
+        httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
+```
+执行顺序是：通过设置一个过滤器在另一个过滤器之前执行来 addFilterBefore addFilterAfter addFilterAT 来指定执行器的顺序。
