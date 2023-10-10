@@ -1,3 +1,5 @@
+1. shell脚本,启动文件
+2. 设置JVM参数
 ``` shell
 
 #!/bin/sh
