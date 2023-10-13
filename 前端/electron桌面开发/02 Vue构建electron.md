@@ -37,8 +37,7 @@ export default new Router({
   全局搜索Cookies.get并替换为localStorage.getItem
   全局搜索Cookies.set并替换为localStorage.setItem
   全局搜索Cookies.remove并替换为localStorage.removeItem
-  全局修改path.resolve为path.posix.resolve    解决页面跳转404的问题
-  ruoyi-ui/src/layout/components/Navbar.vue         location.href = '/index';  修改为  this.$router.push('/login')
+  ruoyi-ui/src/layout/components/Navbar.vue中进行修改      location.href = '/index';  修改为  this.$router.push('/login')
 
 然后找到：ruoyi-ui/src/views/login.vue
 localStorage.setItem("username", this.loginForm.username, { expires: 30 });
@@ -48,6 +47,15 @@ localStorage.setItem('rememberMe', this.loginForm.rememberMe, { expires: 30 });
 localStorage.setItem("username", this.loginForm.username);
 localStorage.setItem("password", encrypt(this.loginForm.password));
 localStorage.setItem('rememberMe', this.loginForm.rememberMe);
+
+  全局修改path.resolve为path.posix.resolve    解决页面跳转404的问题
+  vue-config.js       const path = require("path-browserify")
+  // import path from 'path'  ->   import path from 'path-browserify';
+   安装依赖  "path-browserify": "^1.0.1",
+
+
+
+
 
   
    ``` 
