@@ -32,6 +32,11 @@ NIO，同步非阻塞IO，阻塞业务处理但不阻塞数据接收，适用于
 4. ChannelHandlerContext，用于传输业务数据。
 5. ChannelPipeline，用于保存处理过程需要用到的ChannelHandler和ChannelHandlerContext。
 
+NioSocketChannel： 异步非阻塞的客户端 TCP Socket 连接。
+NioServerSocketChannel： 异步非阻塞的服务器端 TCP Socket 连接。
+OioSocketChannel： 同步阻塞的客户端 TCP Socket 连接。
+OioServerSocketChannel： 同步阻塞的服务器端 TCP Socket 连接。
+
 ## ByteBuf
 ByteBuf是一个存储字节的容器，最大特点就是使用方便，它既有自己的读索引和写索引，方便你对整段字节缓存进行读写，也支持get/set，方便你对其中每一个字节进行读写，他的数据结构如下图所示：
 1. Heap Buffer 堆缓冲区,堆缓冲区是ByteBuf最常用的模式，他将数据存储在堆空间。
