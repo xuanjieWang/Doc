@@ -28,8 +28,18 @@ http相应: HttpResponse包含头信息 => HttpContent 里面包含的是数据�
 2. ChannelFuture sync() 等待异步操作完成改为同步
 
 ### EventLoopGropu和NioEventLoop
-1. 相当于是线程池和线程
-2. 
+1. 相当于是线程池和线程的作用
+2. NioEventLoop是EventLoop的实现类
+
+### ServerBootstrap和BootStrap
+1. ServerBootStrap是服务端启动助手(两个线程组),BootStrap是客户端(一个线程组)
+2. channel
+3. option   BoosEventLoopGroup
+4. childOption workerEventLoopGroup
+5. childHandler   工作线程池出来的逻辑
+
+### Unpooled类
+1. 操作缓冲区的类
 
 ### 什么是Decoder和Encoder: 
 1. Channel,一个客户端与服务端通信的通道
