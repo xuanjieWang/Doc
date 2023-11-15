@@ -1,22 +1,29 @@
 ### Netty 是 一个异步事件驱动的网络应用程序框架，用于快速开发可维护的高性能协议服务器和客户端。
-BIO，同步阻塞IO，阻塞整个步骤，如果连接少，他的延迟是最低的，因为一个线程只处理一个连接，适用于少连接且延迟低的场景，比如说数据库连接。
-NIO，同步非阻塞IO，阻塞业务处理但不阻塞数据接收，适用于高并发且处理简单的场景，比如聊天软件。
-多路复用IO，他的两个步骤处理是分开的，也就是说，一个连接可能他的数据接收是线程a完成的，数据处理是线程b完成的，他比BIO能处理更多请求。
-信号驱动IO，这种IO模型主要用在嵌入式开发，不参与讨论。
-异步IO，他的数据请求和数据处理都是异步的，数据请求一次返回一次，适用于长连接的业务场景。
+1. BIO，同步阻塞IO，阻塞整个步骤，如果连接少，他的延迟是最低的，因为一个线程只处理一个连接，适用于少连接且延迟低的场景，比如说数据库连接。
+2. NIO，同步非阻塞IO，阻塞业务处理但不阻塞数据接收，适用于高并发且处理简单的场景，比如聊天软件。
+3. 多路复用IO，他的两个步骤处理是分开的，也就是说，一个连接可能他的数据接收是线程a完成的，数据处理是线程b完成的，他比BIO能处理更多请求。
+4. 信号驱动IO，这种IO模型主要用在嵌入式开发，不参与讨论。
+5. 异步IO，他的数据请求和数据处理都是异步的，数据请求一次返回一次，适用于长连接的业务场景。
 
 ### IO线程模型
 1. react线程模型
    和之前的nio是类似的,用一个单线程去轮询监听连接事件,当有读写的请求过来的时候,会调用子线程去处理读写请求
    问题: 子线程可能因为任务数量太多,导致并发不够,使用一个主线程去监听连接时间会有瓶颈
-  
-3. react多线程模型
+2. react多线程模型
    使用一个主线程去监听连接事件,当时读写请求的时候,使用handle去处理时间,并调用底层的work线程池去处理读写请求
    问题: 使用一个主线程去监听连接事件会有连接上面的瓶颈问题
-   
-4. 主从react线程模型
+3. 主从react线程模型
    主React负责去监听连接事件,当建立建立之后将请求转交给从节点的React线程, 并分配到handle去处理相对应的请求.每一个从react都有自己的work线程池.
 
+### netyy使用的线程模型
+client -> ServerSocketChannel -> accept -> socketChannel -> nioSocketChannel -> selector(WorkerGroup)
+1. BoosGroup:使用线程池轮询客户端建立连接 select轮询io连接事件,处理accept事件与客户端建立简介,生成NIOSocketChannel注册到WorkerGroup上面的线程上的Selector
+2. WorkerGroup:使用线程池轮询和处理IO事件,select轮询注册到nioSocketChannel上面的read/write事件,在对应的NIoSocketChannel处理read/write事件
+
+### 详细版本的netty模型
+1. BoosGroup, nioeventLoop(selecto(轮询)r+TaskQueue(任务线程))(单个线程),只关注连接事件,去除事件的key,处理key ProcessSelectKeys可以得到通道,将通道注册到Work Group上面.
+2. WorkerGroup, nioeventLoop(selector(轮询)+TaskQueue(任务线程))(单个线程),监听事件处理key,添加到runAllTasks去执行事件线程
+3. BoosNioEventLoopGroup: 事件循环组包含NioEventLoop很多的事件循环线程池中的一个线程
 
 ### netty是一Nio的封装,可以实现http,websocket协议
 
