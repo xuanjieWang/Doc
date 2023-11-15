@@ -14,7 +14,9 @@ http相应: HttpResponse包含头信息 => HttpContent 里面包含的是数据�
 1. pipeline,中维护了很多的处理器(拦截处理器,过滤处理器,自定义处理器)
 
 ### ChannelHandler
-1. 定义了很多处理事件的方法
+1. 定义了很多处理事件的方法,可以在事件就绪,事件发送, 事件出现异常的时候进行调用
+2. 客户端给服务端发送消息的时候,读消息出栈
+3. 服务端消息接受,消息入栈的处理器,查找CHannelpipeLine中的handle,出栈
 
 ### 什么是Decoder和Encoder: 
 1. Channel,一个客户端与服务端通信的通道
