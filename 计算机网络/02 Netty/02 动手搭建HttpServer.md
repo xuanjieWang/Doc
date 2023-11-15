@@ -17,6 +17,19 @@ http相应: HttpResponse包含头信息 => HttpContent 里面包含的是数据�
 1. 定义了很多处理事件的方法,可以在事件就绪,事件发送, 事件出现异常的时候进行调用
 2. 客户端给服务端发送消息的时候,读消息出栈
 3. 服务端消息接受,消息入栈的处理器,查找CHannelpipeLine中的handle,出栈
+4. ChannelHandlerContext: 处理器上下文,关闭,刷新,开始处理出栈,,将数据数据写道ChannelPipe中的下一个ChanelHandler
+
+### ChannelOption: 设置Channel的参数Socket的标准参数
+1. ChannelOption.SO_BACKLOG: 设置初始化可连接的队列大小
+2. ChannelOption.SO_KEEPALIVE: 设置活动探测报文
+
+### ChannelFuure: 异步返回结果,所有的IO都是异步的
+1. channel channel()获取当前正在进行IO操作的通道
+2. ChannelFuture sync() 等待异步操作完成改为同步
+
+### EventLoopGropu和NioEventLoop
+1. 相当于是线程池和线程
+2. 
 
 ### 什么是Decoder和Encoder: 
 1. Channel,一个客户端与服务端通信的通道
