@@ -10,6 +10,12 @@ http相应: HttpResponse包含头信息 => HttpContent 里面包含的是数据�
 4. HttpObjectAggregator(512 * 1024)的参数含义是消息合并的数据大小，如此代表聚合的消息内容长度不超过512kb。
 5. 添加对接口的处理
 
+### processSelectedKeys处理连接事件,生成NioSocketChannel,注册到WorkNioEventLoop中,会使用到pipeline,获取到对应的channel
+1. pipeline,中维护了很多的处理器(拦截处理器,过滤处理器,自定义处理器)
+
+### ChannelHandler
+1. 定义了很多处理事件的方法
+
 ### 什么是Decoder和Encoder: 
 1. Channel,一个客户端与服务端通信的通道
 2. ChannelHandler,业务逻辑处理器,分别是ChannelinBoundHandler和ChannelOutboundHandler
