@@ -39,7 +39,7 @@ client -> ServerSocketChannel -> accept -> socketChannel -> nioSocketChannel -> 
 当完整的一个
 
 ### netty为什么快
-1. netty傻逼用了零拷贝
+1. netty使用了零拷贝
 2. 一般我们的数据如果需要从IO读取到堆内存，中间需要经过Socket缓冲区，也就是说一个数据会被拷贝两次才能到达他的的终点，如果数据量大，就会造成不必要的资源浪费。
 3. Netty针对这种情况，使用了NIO中的另一大特性——零拷贝，当他需要接收数据的时候，他会在堆内存之外开辟一块内存，数据就直接从IO读到了那块内存中去，在netty里面通过ByteBuf可以直接对这些数据进行直接操作，从而加快了传输速度。
 原本使用: data => 页缓存 => 应用程序缓冲区  => socket缓存  => DMA传输到网卡
@@ -65,10 +65,16 @@ ByteBuf是一个存储字节的容器，最大特点就是使用方便，它既�
 4. DirectBuffer 在 -XX:MaxDirectMemorySize=xxM大小限制下, 使用 Heap 之外的内存, GC对此”无能为力”,也就意味着规避了在高负载下频繁的GC过程对应用线程的中断影响.
 5. Composite Buffer 复合缓冲区 复合缓冲区相当于多个不同ByteBuf的视图，这是netty提供的，jdk不提供这样的功能。
 
-## Codec
+### Codec编码和解码
+#### java的编码和解码,将原始数据和自定义的消息对象进行转化,使用字节传输,网络传输,对象持久化,无法跨语言,序列化之后太大,性能低
 1. Netty中的编码/解码器，通过他你能完成字节与pojo、pojo与pojo的相互转换，从而达到自定义协议的目的。
 2. 在Netty里面最有名的就是HttpRequestDecoder和HttpResponseEncoder了。
+3. Netty中的编解码器,实现了ChannelHandlerAdapter,也是一种特殊的ChannelHandler,依赖于CHannelPieLine.
 
+### 解码器Decoder
+1. 解码器是入栈数据的体现,是抽象ChannelInboundHandler的实现,将解码器放在pipeLine中
+2. netty中提供了,ByteToMessageDecoder(字节转换为消息)和MessagetoMessageDecoder(pojo转换为pojo),httpServerCodec
+3. 
 
 
 
