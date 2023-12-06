@@ -1,4 +1,4 @@
-## mybatsi允许你在已经映射语句执行过程中能进行拦截调用
+## mybatsi允许你在已经映射语句执行过程中能进行拦截调用,使用动态代理来执行的
 1. 拦截执行器的方法：Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
 2. 拦截参数的处理：ParameterHandler (getParameterObject, setParameters)
 3. 拦截结果集的处理：ResultSetHandler (handleResultSets, handleOutputParameters)
@@ -88,3 +88,9 @@ public class MyBatisConfig extends MybatisPlusConfigurerAdapter {
 
 }
 ```
+
+### mybatis插件原理
+1. 每个创建出来的对象,都不是直接返回的,通过interceptorChain,.pluginAll(paranmeterHandler)
+2. 获取到所有的拦截器,调用interceptor.plug方法进行操作,通过返回target
+3. 都是执行invoke方法,完成逻辑的增强
+4. 自定义插件,对核心方法进行拦截,
