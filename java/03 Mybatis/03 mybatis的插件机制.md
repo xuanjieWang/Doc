@@ -1,6 +1,6 @@
 ## mybatsi允许你在已经映射语句执行过程中能进行拦截调用,使用动态代理来执行的
 1. 拦截执行器的方法：Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
-2. 拦截参数的处理：ParameterHandler (getParameterObject, setParameters)
+2. 拦截参数的处理：ParameterHandler (getParameterObject, setParameters,prepare(拦截用于创建PreparedStatement对象，并设置超时时间。))
 3. 拦截结果集的处理：ResultSetHandler (handleResultSets, handleOutputParameters)
 4. 拦截sql语句构建的处理：StatementHandler (prepare, parameterize, batch, update, query)
 
@@ -94,3 +94,11 @@ public class MyBatisConfig extends MybatisPlusConfigurerAdapter {
 2. 获取到所有的拦截器,调用interceptor.plug方法进行操作,通过返回target
 3. 都是执行invoke方法,完成逻辑的增强
 4. 自定义插件,对核心方法进行拦截,
+
+## 自定义MybatisPlus插件
+1. 实现intercepts接口
+2. 创建一个Java类，实现MyBatis的Interceptor接口。
+3. 在实现类中重写intercept方法，该方法用于拦截MyBatis的方法调用。
+4. 在intercept方法中，可以对拦截到的方法进行处理，并返回处理后的结果。
+5. 可以通过使用@Intercepts注解，指定要拦截的方法。例如：@Intercepts({@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})})。
+6. 在MyBatis配置文件中配置自定义插件。例如：<plugins><plugin interceptor="com.example.MyInterceptor"></plugin></plugins>。
