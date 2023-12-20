@@ -1,3 +1,5 @@
+#### JSP文件 -> servlet  命名组件  日志服务  ceyote连接服务 catalina容器组件
+
 1. 客户端发送HTTP请求：当用户在浏览器中输入URL并按下回车键时，浏览器会向服务器发送HTTP请求。
 2. 请求到达Tomcat服务器：Tomcat服务器监听指定的端口，一旦接收到请求，它将开始处理该请求。
 3. 请求分发器（Dispatcher）：Tomcat使用请求分发器将请求路由到相应的Servlet。分发器根据请求的URL和映射规则，将请求分发给具体的Servlet。
@@ -63,8 +65,10 @@ Coyote的工作流程如下：
 - 处理HTTP协议的响应，包括设置响应头、发送响应体等。
 
 coyoteIO模型
-传统的阻塞IO请求中，每个连接都需一个独立的线程处理，CoyoteIO模型使用事件驱动和异步非阻塞的方式处理IO请求
-
+传统的阻塞IO请求中，每个连接都需一个独立的线程处理，CoyoteIO模型使用事件驱动和异步非阻塞的方式处理IO请求。
+传统的线程模型有BIO，NIO 
+将连接之后封装成一个request对象（ServletRequest）给catalina容器对象。
+协议：应用层，http1.1，aip      IO方式： 传输层： Nio1.0 Nio2.0 APR
 
 #### catalina tomcat容器
 Coyote和Catalina都是Apache Tomcat中的重要组件，它们分别负责不同的功能。
@@ -103,4 +107,25 @@ Tomcat的启动过程和Servlet的生命周期可以用以下的时序图来描�
    - 请求处理阶段：一旦Servlet实例初始化完成，Servlet容器会将请求交给Servlet实例的service()方法进行处理。在service()方法中，开发者可以根据请求的类型（GET、POST等）进行相应的处理逻辑。
    - 销毁阶段：当Tomcat服务器关闭或Servlet实例被从Servlet容器中移除时，Servlet容器会调用Servlet实例的destroy()方法进行销毁操作。在该方法中，开发者可以释放资源、关闭连接等清理工作。
 
-以上是Tomcat启动时序图和Servlet的生命周期的简要描述，希望对你有所帮助。
+#### Catalina是Apache Tomcat服务器的核心组件之一，它负责处理Web应用程序的请求和响应。下面是Catalina的基本结构：
+1.1 Server（服务器）：Tomcat的顶级组件，表示整个Tomcat服务器实例。一个Tomcat服务器可以包含多个Service。
+2. 多Service（服务）：一个Service代表一个Tomcat实例中的一个逻辑分组。每个Service可以包含多个Connector和一个Container。
+3. 多Connector（连接器）：用于接收和处理客户端的HTTP请求，将请求传递给Container进行处理。Tomcat支持多种类型的Connector，如HTTP Connector、AJP Connector等。
+4. 多Container（容器）：负责处理请求并生成响应。Container通常包含多个Engine和一个或多个Host。
+5.  Engine（引擎）（一个service一个）：一个Engine代表一个虚拟主机，可以处理多个域名或主机名。每个Engine可以包含多个Host。
+6. Host（主机）：一个Host代表一个Web应用程序的容器，可以处理一个或多个Web应用程序。每个Host可以包含多个Context。
+7. Context（上下文）：一个Context代表一个Web应用程序，包含Web应用程序的配置信息和资源。每个Context通常对应一个独立的Web应用程序。
+
+#### Tomcat类加载机制
+1. 双亲委派模型：Tomcat使用双亲委派模型来加载类。当Tomcat需要加载一个类时，首先会委派给父类加载器（如Bootstrap类加载器、Ext类加载器和App类加载器）进行加载。如果父类加载器无法加载该类，才会由Tomcat自己的类加载器进行加载。
+2. 共享类加载器：Tomcat使用共享类加载器来加载公共的类库，如Tomcat自带的servlet-api.jar和jsp-api.jar。共享类加载器位于Tomcat的lib目录下，被所有的Web应用程序共享。
+3. Web应用程序类加载器：每个Web应用程序在部署时都会创建一个独立的类加载器，用于加载该应用程序的类。这个类加载器被称为Web应用程序类加载器（WebappClassLoader）。它会首先尝试从Web应用程序的WEB-INF/classes目录加载类，然后再从WEB-INF/lib目录加载JAR文件中的类。
+4. 热部署支持：Tomcat的类加载器实现了热部署支持，即在运行时动态加载或卸载Web应用程序。当一个Web应用程序被卸载时，它的类加载器和相关的类也会被卸载，释放内存资源。
+
+#### Tomcat调优
+在Tomcat的调优过程中，JVM内存调优是非常重要的一部分。适当地配置JVM内存参数可以提高Tomcat的性能和稳定性。以下是一些常见的JVM内存调优参数：
+1. -Xms 和 -Xmx：这两个参数用来设置JVM的初始堆大小和最大堆大小。可以根据应用程序的需求来适当地调整这两个参数。如果应用程序的内存需求较大，可以增大-Xms和-Xmx的值。
+2. -XX:PermSize 和 -XX:MaxPermSize：这两个参数用来设置永久代（PermGen）的初始大小和最大大小。在Java 8及以后的版本中，PermGen被元空间（Metaspace）取代，所以这两个参数不再生效。如果使用的是Java 7或更早的版本，可以根据应用程序的需求来调整这两个参数。
+3. -XX:NewSize 和 -XX:MaxNewSize：这两个参数用来设置新生代（Young Generation）的初始大小和最大大小。新生代主要用于存放新创建的对象。可以根据应用程序的对象创建和回收情况来调整这两个参数。
+4. -XX:SurvivorRatio：这个参数用来设置Eden区和Survivor区的比例。默认值为8，代表Eden区和Survivor区的比例为8:1。可以根据应用程序的对象分配和回收情况来调整这个参数。
+5. -XX:MaxTenuringThreshold：这个参数用来设置对象进入老年代的年龄阈值。默认值为15，代表对象在经过15次Minor GC后，如果仍然存活，就会被移动到老年代。可以根据应用程序的对象生命周期来调整这个参数。
