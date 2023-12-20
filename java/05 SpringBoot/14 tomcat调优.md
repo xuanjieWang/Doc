@@ -43,7 +43,7 @@ Tomcat中的适配器的主要作用是将Servlet容器的底层功能与特定�
 总体来说，Tomcat的架构是基于多层结构的，每个组件负责不同的功能。它通过Connector接收请求，然后通过Engine、Host和Context将请求传递给相应的Servlet进行处理。
 并返回响应给客户端。这种架构使得Tomcat能够高效地处理大量的并发请求，并提供稳定的Web应用程序运行环境。
 
-#### coyote tomcat连接器
+#### coyote tomcat连接器组件
 Coyote是Apache Tomcat中的一个组件，是用于处理网络通信的HTTP协议处理器。它是Tomcat的连接器（Connector）组件之一，负责接收HTTP请求并将其传递给Tomcat容器进行处理。
 Coyote使用基于线程池的多线程模型来处理请求。当Coyote接收到一个HTTP请求时，它会从线程池中获取一个空闲线程来处理该请求。这种模型能够支持并发处理多个请求，提高了Tomcat的性能和吞吐量。
 Coyote还提供了一些配置选项，可以通过修改Tomcat的`server.xml`文件来进行配置。例如，可以配置Coyote监听的端口号、最大连接数、超时时间等。
@@ -61,6 +61,10 @@ Coyote的工作流程如下：
 - 执行Servlet的生命周期方法，包括init、service和destroy。
 - 处理HTTP协议相关的功能，如Cookie管理、会话管理等。
 - 处理HTTP协议的响应，包括设置响应头、发送响应体等。
+
+coyoteIO模型
+传统的阻塞IO请求中，每个连接都需一个独立的线程处理，CoyoteIO模型使用事件驱动和异步非阻塞的方式处理IO请求
+
 
 #### catalina tomcat容器
 Coyote和Catalina都是Apache Tomcat中的重要组件，它们分别负责不同的功能。
