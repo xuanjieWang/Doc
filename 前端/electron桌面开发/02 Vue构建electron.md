@@ -43,23 +43,20 @@ export default new Router({
 localStorage.setItem("username", this.loginForm.username, { expires: 30 });
 localStorage.setItem("password", encrypt(this.loginForm.password), { expires: 30 });
 localStorage.setItem('rememberMe', this.loginForm.rememberMe, { expires: 30 });
-
+修改为： 
 localStorage.setItem("username", this.loginForm.username);
 localStorage.setItem("password", encrypt(this.loginForm.password));
 localStorage.setItem('rememberMe', this.loginForm.rememberMe);
-
-  全局修改path.resolve为path.posix.resolve    解决页面跳转404的问题
-  vue-config.js       const path = require("path-browserify")
-  // import path from 'path'  ->   import path from 'path-browserify';
-   安装依赖  "path-browserify": "^1.0.1",
-
-
-
-
-
-  
-   ``` 
-5.  ruoyi-ui/package.json
+   ```
+5. 路径切换
+``` js
+安装依赖  "path-browserify": "^1.0.1",
+全局修改path.resolve为path.posix.resolve    解决页面跳转404的问题
+vue-config.js       const path = require("path-browserify")
+// import path from 'path'  ->   import path from 'path-browserify';
+```
+   
+7.  ruoyi-ui/package.json
     ``` js
       "main": "background.js",
   "scripts": {
@@ -70,9 +67,8 @@ localStorage.setItem('rememberMe', this.loginForm.rememberMe);
     "lint": "eslint --ext .js,.vue src"
   },
     ```
-7.  vue.config.js  添加页面的图标
+6.  vue.config.js  添加页面的图标
 ```js
-
   pluginOptions: {
     electronBuilder: {
       builderOptions: {
