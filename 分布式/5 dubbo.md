@@ -7,5 +7,24 @@
 ### SPI机制
 1. mate-info/service下面的配置文件实现，命名方式是接口全类名
 2. 扩展点接口：是一种插件共享机制，
-3. dubbo中的过滤器，filter机制是专门为提供。在每次的远程方法执行完成中后，实现ip黑白名单，监控功能，日志记录
-4. 实现org.apache.dubbo.rpc.Filter接口，指定生产端注册，计算方法运行时间的代码实现，在META-INF.dubbo中创建org.apache.dubbo.rpc.filter文件，将之前的类写到文件中去。
+3. dubbo中的过滤器，filter机制是专门为提供。在每次的远程方法执行完成中后，实现ip黑白名单，监控功能，日志记录，实现rpc下面的Filter，可以打印出一个服务执行的时间，在resources下面的Mate-info文件夹下面的文件夹。                                                 
+4. 实现org.apache.dubbo.rpc.Filter接口，指定生产端注册，计算方法运行时间的代码实现，在META-INF.dubbo中创建org.apache.dubbo.rpc.filter文件
+
+### doubbo实现负载均衡
+1. 在服务端的配置文件中添加负载均衡策略，通过loadbanlance机制来执行负载均衡策略
+2. 处理使用配置文件中来操作负载均衡策略，还可以使用注解来指定负载均衡的
+3. xml可以使用方法级别控制负载均衡，也可以使用标注，默认的负载均衡是随机的，调用多次。
+4. 在消费端设置负载均的策略（随机，轮询，最少活跃数，一致性hash）
+
+@Reference(interfaceClass = com.example.UserService.class, loadbalance = "roundrobin")
+public interface UserService {
+    //...
+}
+
+### 开发自己的负载均衡规则
+1. org.apache.dubbo.rpc.cluster.loadBalance，可以通过实现这个接口来自定义负载均衡规则
+2. 自定义负载均衡，创建dubbo-spi-loadbalance的maven模块，创建负载onltFirstLoadBalance
+3. 配置负载均衡器，META-info文件夹下创建dubbo.rpc.clutster.loadbalance文件将当前的类名写入 onlyFirst=包名+负载均衡器
+4. 测试负载均衡的效果
+
+### dubbo提供了异步调用方法
