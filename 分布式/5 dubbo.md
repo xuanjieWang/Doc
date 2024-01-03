@@ -49,3 +49,9 @@ public interface UserService {
 3. 请求过来，判断是否请求该应用，如果是请求重启应用，将服务提供者从服务列表剔除。操作zookeepe的工具类使用curator框架
 4. 创建预发布的路径管理器，监听zookeeper路径实现PathChildrenCacheListener路径监听器，路径节点变化的时候自动调用
 5. 判断节点信息在不在
+
+### 服务动态降级
+1. 服务降级，在服务器压力剧增的情况下，dubbo管理控制台控制
+2. dubbo admin的屏蔽和容错，屏蔽是直接返回null，容错是当报错的时候返回null
+3. 指定简单值或者null
+4. 整合hystrix，熔断器
