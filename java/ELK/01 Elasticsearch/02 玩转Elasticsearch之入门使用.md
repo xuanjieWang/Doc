@@ -1,10 +1,9 @@
-### es：索引：  一个索引是一个关系型数据库
+## es：索引：  一个索引是一个关系型数据库
 类型: 代表的是一个表
 映射：定义了每个字段的类型和信息，相当于关系型数据库中的表结构
 集成ik分词器，需要和es的版本是一致 的不然会闪退，使用docker ps进行安装，在更新kinba中的配置文件配置中文 ik_max_word (常用，最细粒度拆分)	ik_smart（最粗粒度拆分）
 扩展词典应用： 进入到 config/analysis-ik/(插件命令安装方式) 或 plugins/analysis-ik/config(安装包安装方式) 目录 下, 新增自定义词典 vim xxx.dic IKAnalyzer.cfg.xml中配置 <entry key="ext_dict">lagou_ext_dict.dic</entry> 扩展词典的路径
 配置同义词典，
-‘
 
 ## 索引操作：
 1. 创建索引库，setting可以设置分片数，副本数。
