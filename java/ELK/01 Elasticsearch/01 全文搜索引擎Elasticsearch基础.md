@@ -1,3 +1,11 @@
+## docker启动es必须是单机而且关闭安全模式
+参数
+``` yml
+      discovery.type=single-node
+      xpack.security.enabled=false
+```
+
+
 ### 全文数据，全文数据的查询方法，全文检索和倒排索引
 
 第一部分：Lucene基础回顾 传统搜索的问题 改进之后的搜索 全文数据 全文数据的查询方法 全文检索和倒排索引 Lucene 相关产品 特性 逻辑模块 第二部分：Lucene 应用实战
