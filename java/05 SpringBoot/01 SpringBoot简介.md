@@ -1,3 +1,30 @@
+SpringCloud 启动时间，10个优化案例！
+
+1.    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(MyApplication.class);
+        app.setLazyInitialization(true);  // 启用懒加载
+        app.run(args);
+    }
+启动懒加载
+
+2， 禁用自动配置
+
+3. 日志加载
+
+4. 组件扫描
+
+5. 数据源懒加载
+
+6. 减少JPA实体类扫描
+
+7. 使用配置中心会加时间，使用本地缓存配置中心
+
+8. 使用JVm参数优化
+
+9. 优化健康检查机制
+
+10. gateway路由精简
+
 ### 约定大于配置
 在Spring Boot框架中，也采用了"约定大于配置"的原则。Spring Boot通过一系列的约定和默认配置来简化开发过程，让开发人员能够更加专注于业务逻辑的实现，而无需过多关注繁琐的配置。
 Spring Boot在项目启动时会自动加载并应用一些默认的配置，例如自动配置数据源、Web服务器等。通过这些默认配置，开发人员可以快速搭建一个可用的基础项目，而无需手动配置大量的细节。
