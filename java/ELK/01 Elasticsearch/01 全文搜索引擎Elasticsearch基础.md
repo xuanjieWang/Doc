@@ -1,9 +1,11 @@
-## docker启动es必须是单机而且关闭安全模式
+## docker启动es必须是单机而且关闭安全模式  后面使用挂载的形式挂载ik分词器
 参数
 ``` yml
       discovery.type=single-node
       xpack.security.enabled=false
 ```
+
+"PATH=/usr/share/elasticsearch/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
 
 
 ### 全文数据，全文数据的查询方法，全文检索和倒排索引
